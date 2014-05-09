@@ -1,6 +1,5 @@
 package ca.etsmtl.log430.lab1;
 
-
 /**
  * Reads from the InputFile and instantiates the Resource objects in the system.
  * It is assumed that the InputFile is in the local directory, contains the
@@ -48,23 +47,29 @@ package ca.etsmtl.log430.lab1;
  * ***********************************************************************
  */
 
-public class ResourceReader extends LineOfTextFileReader {
-
+public class ResourceReader extends LineOfTextFileReader 
+{
 	/**
 	 * The list of drivers.
 	 */
 	private ResourceList listOfResources = new ResourceList();
 
-	public ResourceReader() {
-
+	/**
+	 * Constructor #1.
+	 */
+	public ResourceReader() 
+	{
 		listOfResources = null;
 
 	} // Constructor #1
 
-	public ResourceReader(String inputFile) {
-
+	/**
+	 * Constructor #2
+	 * @param inputFile the file path.
+	 */
+	public ResourceReader(String inputFile) 
+	{
 		listOfResources = readResourceListFromFile(inputFile);
-
 	} // Constructor #2
 
 	/**
@@ -77,8 +82,8 @@ public class ResourceReader extends LineOfTextFileReader {
 	 * @param inputFile
 	 * @return The list of drivers
 	 */
-	public ResourceList readResourceListFromFile(String inputFile) {
-
+	public ResourceList readResourceListFromFile(String inputFile) 
+	{
 		String text; // Line of text from the file
 		boolean done; // End of the file - stop processing
 
@@ -87,51 +92,55 @@ public class ResourceReader extends LineOfTextFileReader {
 
 		ResourceList listObject = new ResourceList();
 
-		if (openFile(inputFile)) {
-
+		if (openFile(inputFile)) 
+		{
 			done = false;
 
-			while (!done) {
-
-				try {
-
+			while (!done) 
+			{
+				try 
+				{
 					text = readLineOfText();
 
-					if (text == null) {
-
+					if (text == null) 
+					{
 						done = true;
 
-					} else {
-
+					}
+					else 
+					{
 						listObject.addResource(parseText(text));
-
 					} // if
-
 				} // try
-
-				catch (Exception Error) {
-
+				catch (Exception Error) 
+				{
 					return (null);
-
 				} // catch
-
 			} // while
-
-		} else {
-
+		} 
+		else 
+		{
 			return (null);
-
 		} // if
-
+		
 		return (listObject);
-
 	} // readTeacherListFromFile
 
-	public ResourceList getListOfResources() {
+	/**
+	 * This function return a list of resource object.
+	 * @return the ResourceList object
+	 */
+	public ResourceList getListOfResources() 
+	{
 		return listOfResources;
 	}
 
-	public void setListOfDrivers(ResourceList listOfResources) {
+	/**
+	 * This function assign a list of resources to read.
+	 * @param listOfResources the list of ressources to read
+	 */
+	public void setListOfDrivers(ResourceList listOfResources) 
+	{
 		this.listOfResources = listOfResources;
 	}
 
@@ -142,8 +151,8 @@ public class ResourceReader extends LineOfTextFileReader {
 	 * @param lineOfText
 	 * @return populated Resource object
 	 */
-	private Resource parseText(String lineOfText) {
-
+	private Resource parseText(String lineOfText) 
+	{
 		boolean done = false; // Indicates the end of parsing
 		String token; // String token parsed from the line of text
 		int tokenCount = 0; // Number of tokens parsed
@@ -155,60 +164,59 @@ public class ResourceReader extends LineOfTextFileReader {
 
 		Resource resource = new Resource();
 
-		while (!done) {
-
+		while (!done) 
+		{
 			backIndex = lineOfText.indexOf(' ', frontIndex);
 
-			if (backIndex == -1) {
-
+			if (backIndex == -1) 
+			{
 				done = true;
 				token = lineOfText.substring(frontIndex);
 
-			} else {
-
+			}
+			else 
+			{
 				token = lineOfText.substring(frontIndex, backIndex);
 			}
 
-			switch (tokenCount) {
-
-			case 0: // Resource ID
-				resource.setID(token);
-				frontIndex = backIndex + 1;
-				tokenCount++;
-				break;
-
-			case 1: // Resource's last name
-				resource.setLastName(token);
-				frontIndex = backIndex + 1;
-				tokenCount++;
-				break;
-
-			case 2: // Resource's First name
-				resource.setFirstName(token);
-				frontIndex = backIndex + 1;
-				tokenCount++;
-				break;
-
-			case 3: // Resource role (see this file's header)
-				resource.setRole(token);
-				frontIndex = backIndex + 1;
-				tokenCount++;
-				break;
-
-			default:
-				// This is where the projects are added to the list of projects
-				// previously assigned to this resource. Note that there are
-				// no details other than the project ID.
-				resource.getPreviouslyAssignedProjectList().addProject(new Project(token));
-				frontIndex = backIndex + 1;
-				break;
-
+			switch (tokenCount) 
+			{
+				case 0: // Resource ID
+					resource.setID(token);
+					frontIndex = backIndex + 1;
+					tokenCount++;
+					break;
+	
+				case 1: // Resource's last name
+					resource.setLastName(token);
+					frontIndex = backIndex + 1;
+					tokenCount++;
+					break;
+	
+				case 2: // Resource's First name
+					resource.setFirstName(token);
+					frontIndex = backIndex + 1;
+					tokenCount++;
+					break;
+	
+				case 3: // Resource role (see this file's header)
+					resource.setRole(token);
+					frontIndex = backIndex + 1;
+					tokenCount++;
+					break;
+	
+				default:
+					// This is where the projects are added to the list of projects
+					// previously assigned to this resource. Note that there are
+					// no details other than the project ID.
+					resource.getPreviouslyAssignedProjectList().addProject(new Project(token));
+					frontIndex = backIndex + 1;
+					break;
 			} // end switch
-
+			
 		} // end while
 
 		return (resource);
-
 	} // parseText
 
 } // ResourceReader

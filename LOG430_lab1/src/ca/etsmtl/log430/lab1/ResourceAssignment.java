@@ -40,6 +40,8 @@ package ca.etsmtl.log430.lab1;
 /*
  * Modification Log
  * **************************************************************************
+ * v1.6, S. Abraham  , 2014-May-07 - Formated source code for easy reading.
+ * 
  * v1.5, R. Champagne, 2013-Sep-13 - Various refactorings for new lab.
  * 
  * v1.4, R. Champagne, 2012-May-31 - Various refactorings for new lab.
@@ -54,17 +56,24 @@ package ca.etsmtl.log430.lab1;
  * **************************************************************************
  */
 
-public class ResourceAssignment {
+public class ResourceAssignment 
+{
 
-	public static void main(String argv[]) {
-
-		if (argv.length != 2) {
+	/**
+	 * Main method
+	 * @param argv arguments to add a the run configuration.
+	 */
+	public static void main(String argv[]) 
+	{
+		if (argv.length != 2) 
+		{
 			System.out.println("\n\nIncorrect number of input parameters -"
 					+ " correct usage:");
 			System.out.println("\njava ResourceAssignment <project file name>"
 					+ " <resource file name>");
-		} else {
-
+		}
+		else 
+		{
 			// Declarations:
 
 			boolean done; // Loop invariant
@@ -87,74 +96,83 @@ public class ResourceAssignment {
 			 * the second argument (argv[1]). An example resources file and projects
 			 * file is provided as resources.txt and projects.txt
 			 */
-
 			ProjectReader projectList = new ProjectReader(argv[0]);
 			ResourceReader resourceList = new ResourceReader(argv[1]);
 
 			if ((projectList.getListOfProjects() == null)
-					|| (resourceList.getListOfResources() == null)) {
+					|| (resourceList.getListOfResources() == null)) 
+			{
 				System.out
 						.println("\n\n *** The projects list and/or the resources"
 								+ " list was not initialized ***");
 				done = true;
-			} else {
+			} 
+			else 
+			{
 				done = false;
 			} // if
 
-			while (!done) {
-
+			while (!done) 
+			{
 				userChoice = menu.mainMenu();
-				switch (userChoice) {
-
-				case '1':
-
-					display.displayResourceList(resourceList.getListOfResources());
-					break;
-
-				case '2':
-
-					display.displayProjectList(projectList.getListOfProjects());
-					break;
-
-				case '3':
-
-					display.displayResourceList(resourceList.getListOfResources());
-					resource = menu.pickResource(resourceList.getListOfResources());
-					if (resource != null) {
-						display.displayProjectsAssignedToResource(resource);
-					} // if
-					break;
-
-				case '4':
-
-					display.displayProjectList(projectList.getListOfProjects());
-					project = menu.pickProject(projectList.getListOfProjects());
-
-					if (project != null) {
-						display.displayResourcesAssignedToProject(project);
-					} // if
-					break;
-
-				case '5':
-
-					display.displayResourceList(resourceList.getListOfResources());
-					resource = menu.pickResource(resourceList.getListOfResources());
-
-					if (resource != null) {
+				
+				switch (userChoice) 
+				{
+					case '1':
+	
+						display.displayResourceList(resourceList.getListOfResources());
+						break;
+	
+					case '2':
+	
+						display.displayProjectList(projectList.getListOfProjects());
+						break;
+	
+					case '3':
+	
+						display.displayResourceList(resourceList.getListOfResources());
+						resource = menu.pickResource(resourceList.getListOfResources());
+						
+						if (resource != null) 
+						{
+							display.displayProjectsAssignedToResource(resource);
+						} // if
+						break;
+	
+					case '4':
+	
 						display.displayProjectList(projectList.getListOfProjects());
 						project = menu.pickProject(projectList.getListOfProjects());
-						if (project != null) {
-							project.assignResource(resource);
-							resource.assignProject(project);
+	
+						if (project != null) 
+						{
+							display.displayResourcesAssignedToProject(project);
 						} // if
-					} // if
-
-					break;
-
-				case 'X':
-
-				case 'x':
-					done = true;
+						break;
+	
+					case '5':
+	
+						display.displayResourceList(resourceList.getListOfResources());
+						resource = menu.pickResource(resourceList.getListOfResources());
+	
+						if (resource != null) 
+						{
+							display.displayProjectList(projectList.getListOfProjects());
+							project = menu.pickProject(projectList.getListOfProjects());
+							
+							if (project != null) 
+							{
+								project.assignResource(resource);
+								resource.assignProject(project);
+							} // if
+						} // if
+	
+						break;
+	
+					case 'X':
+	
+					case 'x':
+						done = true;
 				} // switch
 			} // while
 		} // if

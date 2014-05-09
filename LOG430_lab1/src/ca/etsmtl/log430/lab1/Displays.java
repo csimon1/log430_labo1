@@ -89,9 +89,9 @@ public class Displays {
 	}
 
 	/**
-	 * Lists the resources that have been assigned to the project.
+	 * Lists all the resources that have been assigned to the project.
 	 * 
-	 * @param project
+	 * @param project the project object.
 	 */
 	public void displayResourcesAssignedToProject(Project project) {
 
