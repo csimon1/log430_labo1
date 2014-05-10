@@ -23,57 +23,53 @@ import java.io.InputStreamReader;
  * v1.0, 12/29/99, A.J. Lattanze - Original version.
  ****************************************************************************/
 
-public class Termio {
-
+public class Termio 
+{
 	/**
 	 * Reads a string from the keyboard and returns it to the caller
 	 * 
 	 * @return The string from the keyboard and returns it to the caller
 	 */
-	public String keyboardReadString() {
-
+	public String keyboardReadString() 
+	{
 		BufferedReader myReader = new BufferedReader(new InputStreamReader(
 				System.in));
 
 		String stringItem = "";
 
-		try {
-
+		try 
+		{
 			stringItem = myReader.readLine();
-
-		} catch (IOException exc) {
-
+		}
+		catch (IOException exc) 
+		{
 			System.out
 					.println("Read Error in Termio.KeyboardReadString method");
-
 		} // try/catch
 
 		return stringItem;
-
 	} // keyboardReadString
 
 	/**
 	 * Reads a single character from the keyboard and returns it to the caller.
 	 */
-	public char keyboardReadChar() {
-
+	public char keyboardReadChar() 
+	{
 		BufferedReader myReader = new BufferedReader(new InputStreamReader(
 				System.in));
 
 		char charItem = ' ';
 
-		try {
-
+		try 
+		{
 			charItem = (char) myReader.read();
-
-		} catch (IOException exc) {
-
+		}
+		catch (IOException exc) 
+		{
 			System.out.println("Read Error in Termio.KeyboardReadChar method");
-
 		} // try/catch
 
 		return charItem;
-
 	} // keyboardReadChar
 
 	/**
@@ -84,20 +80,18 @@ public class Termio {
 	 * @param stringItem
 	 * @return true if the string represents a numeric value, false otherwise.
 	 */
-	public boolean isNumber(String stringItem) {
-
-		try {
-
+	public boolean isNumber(String stringItem) 
+	{
+		try 
+		{
 			Float.valueOf(stringItem);
-
-		} catch (NumberFormatException exc) {
-
+		} 
+		catch (NumberFormatException exc) 
+		{
 			return false;
-
 		} // try/catch
 
 		return true;
-
 	} // isNumber
 
 	/**
@@ -108,24 +102,22 @@ public class Termio {
 	 * @param stringItem
 	 * @return The input string as a float.
 	 */
-	public float toFloat(String stringItem) {
-
+	public float toFloat(String stringItem) 
+	{
 		Float floatItem = new Float(0.0);
-
-		try {
-
+		
+		try 
+		{
 			floatItem = Float.valueOf(stringItem);
-
-		} catch (NumberFormatException exc) {
-
+		} 
+		catch (NumberFormatException exc) 
+		{
 			System.out.print("Error converting " + stringItem);
 			System.out.print(" to a floating point number::");
 			System.out.println(" Termio.ToFloat method.");
-
 		} // try/catch
 
 		return floatItem.floatValue();
-
 	} // toFloat
 
 	/**
@@ -136,22 +128,22 @@ public class Termio {
 	 * @param stringItem
 	 * @return The input string as a double.
 	 */
-	public double toDouble(String stringItem) {
+	public double toDouble(String stringItem) 
+	{
 		Float floatItem = null;
-		try {
-
+	
+		try 
+		{
 			floatItem = Float.valueOf(stringItem);
-
-		} catch (NumberFormatException exc) {
-
+		} 
+		catch (NumberFormatException exc) 
+		{
 			System.out.print("Error converting " + stringItem);
 			System.out.print(" to a floating point number::");
 			System.out.println(" Termio.ToDouble method.");
-
 		} // try/catch
 
 		return floatItem.doubleValue();
-
 	} // toDouble
 
 	/**
@@ -162,24 +154,22 @@ public class Termio {
 	 * @param stringItem
 	 * @return The input string as an integer.
 	 */
-	public int toInteger(String stringItem) {
-
+	public int toInteger(String stringItem) 
+	{
 		Integer integerItem = null;
 
-		try {
-
+		try 
+		{
 			integerItem = Integer.valueOf(stringItem);
-
-		} catch (NumberFormatException exc) {
-
+		} 
+		catch (NumberFormatException exc) 
+		{
 			System.out.print("Error converting " + stringItem);
 			System.out.print(" to an integer number::");
 			System.out.println(" Termio.ToInteger method.");
-
 		} // try/catch
 
 		return integerItem.intValue();
-
 	} // toInteger
 
 } // Termio class

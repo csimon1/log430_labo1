@@ -21,12 +21,14 @@ package ca.etsmtl.log430.lab1;
  * The resources.txt file has been provided as an example.
  * 
  * @author A.J. Lattanze, CMU
- * @version 1.7, 2013-Sep-13
+ * @version 1.8, 2014-May-07
  */
 
 /*
  * Modification Log
  ************************************************************************
+ * v1.8, 2014-May-07, S. Abraham  , - Formated source code for easier reading.
+ *
  * v1.7, 2013-Sep-13, R. Champagne, Various refactorings for new lab.
  * 
  * v1.6, 2012-Jun-19, R. Champagne, Various refactorings for new lab.

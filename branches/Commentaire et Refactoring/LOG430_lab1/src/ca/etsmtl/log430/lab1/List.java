@@ -11,11 +11,13 @@ import java.util.Vector;
  * the List class.
  * 
  * @author A.J. Lattanze, CMU
- * @version 1.4, 2013-Sep-13
+ * @version 1.5, 2014-May-10
  */
 
 /* Modification Log
  **************************************************************************************
+ * v1.5, S. Abraham  , 2014-May-10 - Formated curly bracket for easy reading.
+ *
  * v1.4, R. Champagne, 2013-Sep-13 - Various refactorings to make classe
  *       independant of future changes..
  * 
@@ -28,8 +30,8 @@ import java.util.Vector;
  * v1.0, 12/29/99, A.J. Lattanze - Original version.
  **************************************************************************************/
 
-public class List {
-
+public class List 
+{
 	/**
 	 * The list of items. Allocates 25 elements initially and will extend the
 	 * vector by elements of 5.
@@ -41,11 +43,10 @@ public class List {
 	 */
 	int vectorIndex; 
 
-	public List() {
-
+	public List() 
+	{
 		itemList = new Vector<Object>(25, 5);
 		vectorIndex = 0;
-
 	} // Constructor
 
 	/**
@@ -55,10 +56,9 @@ public class List {
 	 * 
 	 * @param item
 	 */
-	public void appendItemToList(Object item) {
-
+	public void appendItemToList(Object item) 
+	{
 		itemList.add(item);
-
 	} // Append Item
 
 	/**
@@ -69,37 +69,31 @@ public class List {
 	 * @return The Object from the list that is currently being pointed to by
 	 * vectorIndex
 	 */
-	public Object getItemFromList() {
-
+	public Object getItemFromList() 
+	{
 		Object item;
 
 		// Each time we get an item we increment the vectorIndex
 		// If we go out of the Vector bounds, then we will catch
 		// in the the catch clause below and return a null object
-
-		try {
-
+		try 
+		{
 			item = itemList.get(vectorIndex);
 			vectorIndex++;
 			return (item);
-
 		} // try
-
-		catch (ArrayIndexOutOfBoundsException error) {
-
+		catch (ArrayIndexOutOfBoundsException error) 
+		{
 			return ((Object) null);
-
 		} // if
-
 	} // Append Item
 
 	/**
 	 * Sets vectorIndex back to zero, thereby pointing at the front of the list.
 	 */
-	void goToFrontOfList() {
-
+	void goToFrontOfList() 
+	{
 		vectorIndex = 0;
-
 	} // goToFrontOfList
-
+	
 } // List Class
