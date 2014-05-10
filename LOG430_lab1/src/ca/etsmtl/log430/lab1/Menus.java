@@ -21,6 +21,8 @@ package ca.etsmtl.log430.lab1;
 /*
  * Modification Log
  * ***************************************************************************
+ * v1.6, S. Abraham  , 2014-May-07 - Added comments and refactoring.
+ * 
  * v1.5, R. Champagne, 2013-Sep-13 - Various refactorings for new lab.
  * 
  * v1.4, R. Champagne, 2012-May-31 - Various refactorings for new lab.

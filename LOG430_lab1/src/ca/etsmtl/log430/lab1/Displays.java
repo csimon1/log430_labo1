@@ -6,12 +6,14 @@ package ca.etsmtl.log430.lab1;
  * (individually and as lists) to the screen.
  * 
  * @author A.J. Lattanze, CMU
- * @version 1.6, 2013-Sep-13
+ * @version 1.7, 2014-May-09
  */
 
 /*
  * Modification Log
  * ************************************************************************
+ * v1.7, S. Abraham  , 2014-May-09 - Formating text for easier reading. 
+ * 
  * v1.6, R. Champagne, 2013-Sep-13 - Various refactorings for new lab.
  * 
  * v1.5, R. Champagne, 2012-Jun-19 - Various refactorings for new lab.
@@ -26,8 +28,8 @@ package ca.etsmtl.log430.lab1;
  * ************************************************************************
  */
 
-public class Displays {
-
+public class Displays 
+{
 	private int lineCount = 0;
 	private int maxLinesDisplayed = 18;
 
@@ -38,22 +40,22 @@ public class Displays {
 	 * 
 	 * @param linesToAdd
 	 */
-	private void lineCheck(int linesToAdd) {
-
+	private void lineCheck(int linesToAdd) 
+	{
 		Termio terminal = new Termio();
 
-		if (lineCount >= maxLinesDisplayed) {
-
+		if (lineCount >= maxLinesDisplayed) 
+		{
 			lineCount = 0;
 			System.out.print("\n*** Press Enter To Continue ***");
 			terminal.keyboardReadChar();
 
-		} else {
-
+		}
+		else 
+		{
 			lineCount += linesToAdd;
 
 		} // if
-
 	} // LineCheck
 
 	/**
@@ -65,8 +67,8 @@ public class Displays {
 	 * 
 	 * @param resource
 	 */
-	public void displayResource(Resource resource) {
-
+	public void displayResource(Resource resource) 
+	{
 		System.out.println(resource.getID() + " "
 				+ resource.getFirstName() + " "
 				+ resource.getLastName() + " "
@@ -80,7 +82,8 @@ public class Displays {
 	 * 
 	 * @param project
 	 */
-	public void displayProject(Project project) {
+	public void displayProject(Project project) 
+	{
 		System.out.println(project.getID() + " "
 				+ project.getProjectName() + " "
 				+ project.getStartDate() + " "
@@ -93,8 +96,8 @@ public class Displays {
 	 * 
 	 * @param project the project object.
 	 */
-	public void displayResourcesAssignedToProject(Project project) {
-
+	public void displayResourcesAssignedToProject(Project project) 
+	{
 		boolean done;
 		Resource resource;
 
@@ -109,22 +112,22 @@ public class Displays {
 		project.getResourcesAssigned().goToFrontOfList();
 		done = false;
 
-		while (!done) {
-
+		while (!done) 
+		{
 			resource = project.getResourcesAssigned().getNextResource();
 
-			if (resource == null) {
-
+			if (resource == null) 
+			{
 				done = true;
 
-			} else {
-
+			}
+			else 
+			{
 				displayResource(resource);
 
 			} // if
 
 		} // while
-
 	}
 
 	/**
@@ -132,39 +135,39 @@ public class Displays {
 	 * 
 	 * @param resource
 	 */
-	public void displayProjectsAssignedToResource(Resource resource) {
-
+	public void displayProjectsAssignedToResource(Resource resource) 
+	{
 		boolean done;
 		Project project;
 
 		System.out.println("\nProjects assigned (in this session) to : "
 				+ resource.getFirstName() + " " + resource.getLastName() + " "
 				+ resource.getID());
+		
 		lineCheck(2);
+		
 		System.out
 				.println("========================================================= ");
+		
 		lineCheck(1);
 
 		resource.getProjectsAssigned().goToFrontOfList();
 		done = false;
 
-		while (!done) {
-
+		while (!done) 
+		{
 			project = resource.getProjectsAssigned().getNextProject();
 
-			if (project == null) {
-
+			if (project == null) 
+			{
 				done = true;
-
-			} else {
-
+			} 
+			else 
+			{
 				displayProject(project);
 				lineCheck(2);
-
 			} // if
-
 		} // while
-
 	}
 
 	/**
@@ -173,8 +176,8 @@ public class Displays {
 	 * 
 	 * @param list
 	 */
-	public void displayResourceList(ResourceList list) {
-
+	public void displayResourceList(ResourceList list) 
+	{
 		boolean done;
 		Resource resource;
 
@@ -185,23 +188,21 @@ public class Displays {
 
 		done = false;
 
-		while (!done) {
-
+		while (!done) 
+		{
 			resource = list.getNextResource();
 
-			if (resource == null) {
-
+			if (resource == null) 
+			{
 				done = true;
-
-			} else {
-
+			} 
+			else 
+			{
 				displayResource(resource);
 				lineCheck(1);
 
 			} // if
-
 		} // while
-
 	}
 
 	/**
@@ -210,8 +211,8 @@ public class Displays {
 	 * 
 	 * @param list
 	 */
-	public void displayProjectList(ProjectList list) {
-
+	public void displayProjectList(ProjectList list) 
+	{
 		boolean done;
 		Project project;
 
@@ -221,23 +222,20 @@ public class Displays {
 		list.goToFrontOfList();
 		done = false;
 
-		while (!done) {
-
+		while (!done) 
+		{
 			project = list.getNextProject();
 
-			if (project == null) {
-
+			if (project == null) 
+			{
 				done = true;
-
-			} else {
-
+			} 
+			else 
+			{
 				displayProject(project);
 				lineCheck(1);
-
 			} // if
-
 		} // while
-
 	}
-
+	
 } // Display

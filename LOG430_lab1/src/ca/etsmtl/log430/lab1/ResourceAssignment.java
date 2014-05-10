@@ -34,7 +34,7 @@ package ca.etsmtl.log430.lab1;
  * </pre>
  * 
  * @author A.J. Lattanze, CMU
- * @version 1.5, 2013-Sep-13
+ * @version 1.6, 2014-May-07
  */
 
 /*

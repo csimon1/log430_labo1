@@ -6,7 +6,7 @@ package ca.etsmtl.log430.lab1;
  * functionality for storage and retrieval of the Resource Object from the list.
  * 
  * @author A.J. Lattanze, CMU
- * @version 1.6, 2013-Sep-13
+ * @version 1.7, 2014-May-07
  */
 
 /*
