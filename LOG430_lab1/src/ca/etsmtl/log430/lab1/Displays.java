@@ -72,6 +72,22 @@ public class Displays {
 				+ resource.getLastName() + " "
 				+ resource.getRole());
 	}
+	
+	/**
+	 * Displays a job object's elements as follows: Job's ID number,
+	 * name, acronym.
+	 * 
+	 * Note that the projects previously assigned to the job and the projects
+	 * assigned to the job in this execution of the system are not displayed.
+	 * 
+	 * @param job
+	 */
+	public void displayJob(Job job) 
+	{
+		System.out.println(job.getID() + " "
+				+ job.getName() + " "
+				+ job.getAcronym());
+	}
 
 	/**
 	 * Displays a project object's elements as follows: ID, name, start date,
@@ -125,6 +141,82 @@ public class Displays {
 
 		} // while
 
+	}
+	
+	/**
+	 * Lists the jobs that have been assigned to the project.
+	 * 
+	 * @param project
+	 */
+	public void displayJobsAssignedToProject(Project project) 
+	{
+		boolean done;
+		//Resource resource;
+		Job job;
+
+		System.out.println("\nJobs assigned to: " + " "
+				+ project.getID() + " " + project.getProjectName() + " :");
+		lineCheck(1);
+
+		System.out
+				.println("===========================================================");
+		lineCheck(1);
+
+		//project.getResourcesAssigned().goToFrontOfList();
+		
+		// TODO Print previously Assigned jobs messages
+		System.out.println("\nPreviously assigned jobs : ");
+		lineCheck(1);
+		
+		// first display previously assigned job's.
+		project.getPreviouslyJobList().goToFrontOfList();
+		
+		done = false;
+		
+		while(!done)
+		{
+			job = project.getPreviouslyJobList().getNextJob();
+
+			if (job == null) 
+			{
+				done = true;
+			}
+			else 
+			{
+				displayJob(job);
+			} // if
+		}
+		
+		System.out
+				.println("***********************************************************");
+		
+		lineCheck(1);
+		
+		System.out.println("\nCurrent assigned jobs : ");
+		lineCheck(1);
+		
+		// display jobs from the current session
+		project.getJobsAssigned().goToFrontOfList();
+		done = false;
+
+		while (!done) 
+		{
+			//resource = project.getResourcesAssigned().getNextResource();
+			job = project.getJobsAssigned().getNextJob();
+
+			if (job == null) 
+			{
+				done = true;
+			}
+			else 
+			{
+				displayJob(job);
+			} // if
+		} // while
+		
+		System.out
+		.println("===========================================================");
+		lineCheck(1);
 	}
 
 	/**
@@ -239,5 +331,37 @@ public class Displays {
 		} // while
 
 	}
+	
+	/**
+	 * Displays the jobs in a job list. Displays the same information
+	 * that is listed in the displayJob() method listed above.
+	 * 
+	 * @param list the list of jobs.
+	 */
+	public void displayJobList(JobList list) 
+	{
+		boolean done;
+		Job job;
 
+		System.out.print("\n");
+		lineCheck(1);
+
+		list.goToFrontOfList();
+
+		done = false;
+
+		while (!done)
+		{
+			job = list.getNextJob();
+
+			if (job == null) 
+			{
+				done = true;
+			} else 
+			{
+				displayJob(job);
+				lineCheck(1);
+			} // if
+		} // while
+	}
 } // Display

@@ -58,11 +58,12 @@ public class ResourceAssignment {
 
 	public static void main(String argv[]) {
 
-		if (argv.length != 2) {
+		//if (argv.length != 2) {
+		if (argv.length != 3) {
 			System.out.println("\n\nIncorrect number of input parameters -"
 					+ " correct usage:");
 			System.out.println("\njava ResourceAssignment <project file name>"
-					+ " <resource file name>");
+					+ " <resource file name> <job file name>");
 		} else {
 
 			// Declarations:
@@ -71,7 +72,8 @@ public class ResourceAssignment {
 			char userChoice; // User's menu choice
 			Project project = null; // A project object
 			Resource resource = null; // A resource object
-
+			Job job = null; // A Job object
+			
 			// Instantiates a menu object
 			Menus menu = new Menus();
 
@@ -90,12 +92,15 @@ public class ResourceAssignment {
 
 			ProjectReader projectList = new ProjectReader(argv[0]);
 			ResourceReader resourceList = new ResourceReader(argv[1]);
-
+			JobReader jobList = new JobReader(argv[2]);
+			
 			if ((projectList.getListOfProjects() == null)
-					|| (resourceList.getListOfResources() == null)) {
+					|| (resourceList.getListOfResources() == null)
+					|| (jobList.getListOfJobs() == null))
+			{
 				System.out
 						.println("\n\n *** The projects list and/or the resources"
-								+ " list was not initialized ***");
+								+ " and/or the jobs " + " list was not initialized ***");
 				done = true;
 			} else {
 				done = false;
@@ -105,7 +110,10 @@ public class ResourceAssignment {
 
 				userChoice = menu.mainMenu();
 				switch (userChoice) {
-
+				case '0':
+					display.displayJobList(jobList.getListOfJobs());
+					break;
+					
 				case '1':
 
 					display.displayResourceList(resourceList.getListOfResources());
@@ -150,7 +158,38 @@ public class ResourceAssignment {
 					} // if
 
 					break;
+				
+				case '7':
+					// display all the existing projects..
+					display.displayProjectList(projectList.getListOfProjects());
+					// prompt the user to select a project
+					project = menu.pickProject(projectList.getListOfProjects());
+					
+					if(project != null)
+					{
+						// display all the jobs assigned to the selected project
+						display.displayJobsAssignedToProject(project);
+					}
+					break;
+				
+				case '8':// assign a job to a project
 
+					display.displayJobList(jobList.getListOfJobs());
+					job = menu.pickJob(jobList.getListOfJobs());
+
+					if (job != null) 
+					{
+						display.displayProjectList(projectList.getListOfProjects());
+						project = menu.pickProject(projectList.getListOfProjects());
+						
+						if (project != null) 
+						{
+							project.assignJob(job);
+							job.assignProject(project);
+						} // if
+					} // if
+
+					break;
 				case 'X':
 
 				case 'x':

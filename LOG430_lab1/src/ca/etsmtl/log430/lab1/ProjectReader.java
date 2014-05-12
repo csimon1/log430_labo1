@@ -137,7 +137,7 @@ public class ProjectReader extends LineOfTextFileReader {
 
             backIndex = lineOfText.indexOf(' ', frontIndex);
 
-            if (tokenCount < 4) {
+           /* if (tokenCount < 4) {
 
                 token = lineOfText.substring(frontIndex, backIndex);
 
@@ -145,7 +145,17 @@ public class ProjectReader extends LineOfTextFileReader {
 
                 token = lineOfText.substring(frontIndex);
 
-            } // if 
+            } // if*/
+
+			if (backIndex == -1) {
+
+				done = true;
+				token = lineOfText.substring(frontIndex);
+
+			} else {
+
+				token = lineOfText.substring(frontIndex, backIndex);
+			}
 
             switch (tokenCount) {
 
@@ -172,10 +182,17 @@ public class ProjectReader extends LineOfTextFileReader {
                     frontIndex = backIndex + 1;
                     tokenCount++;
                     break;
-
-                default : // Priority
-                    newProject.setPriority(token);
-                    done = true;
+                    
+                case 4 : // Priority
+                	newProject.setPriority(token);
+                    frontIndex = backIndex +1;
+                    tokenCount++;
+                    break;
+                    
+                default : // Previously jobs assigned
+                    newProject.getPreviouslyJobList().addJob(new Job(token));
+                    //done = true;
+                    frontIndex = backIndex + 1;
                     break;
 
             } // end switch
