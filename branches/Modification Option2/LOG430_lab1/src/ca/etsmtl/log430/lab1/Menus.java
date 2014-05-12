@@ -49,15 +49,17 @@ public class Menus {
 			System.out.println("3) List projects currently assigned to a resource");
 			System.out.println("4) List resources currently assigned to a project");
 			System.out.println("5) Assign a resource to a project");
+			System.out.println("7) List jobs(Roles) currently assigned to a project");
 			System.out.println("X) Exit");
 			System.out.print("\n\nEnter your choice and press return >> ");
 
 			userChoice = terminal.keyboardReadChar();
 
 			if ((userChoice != 'X') && (userChoice != 'x')
-					&& (userChoice < '1') && (userChoice != '2')
+					//&& (userChoice < '1') && (userChoice != '2')
+					&& (userChoice < '0') && (userChoice != '2')
 					&& (userChoice != '3') && (userChoice < '4')
-					&& (userChoice != '5')) {
+					&& (userChoice != '5') && (userChoice != '7')) {
 
 				System.out.print("\n\n*** Invalid Choice:: " + userChoice
 						+ " ***");
@@ -115,5 +117,31 @@ public class Menus {
 		return (project);
 
 	} // pickProject
+	
+	/**
+	 * This function select a job from the job's list
+	 * and return the job selected by the user.
+	 * @param list the job list to iterates.
+	 * @return the selected job.
+	 */
+	public Job pickJob(JobList list) 
+	{
+		Termio terminal = new Termio();
+		String userChoiceJobID;
+		Job job = null;
+
+		System.out.print("\n\nEnter job ID and press return >> ");
+		userChoiceJobID = terminal.keyboardReadString();
+
+		job = list.findJobByID(userChoiceJobID);
+
+		if (job == null) 
+		{
+			System.out.println("\n\n*** Job ID " + userChoiceJobID
+					+ " not found ***");
+		} // if
+
+		return (job);
+	}
 
 } // Menus

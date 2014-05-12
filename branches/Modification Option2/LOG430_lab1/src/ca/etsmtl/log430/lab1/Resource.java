@@ -98,22 +98,33 @@ public class Resource {
 		return id;
 	}
 
+	
 	public void setRole(String role) {
 		this.role = role;
 	}
+	
+	//TODO set the role by using the job's Acronym variable once everything works perfectly.
+	/*
+	public void setRole(String jobAcronym)
+	{
+		this.role = jobAcronym;
+	}*/
 
 	public String getRole() {
 		return role;
 	}
 
+	//TODO This function is never called!
 	public void setPreviouslyAssignedProjectList(ProjectList projectList) {
 		this.alreadyAssignedProjectList = projectList;
 	}
 
+	
 	public ProjectList getPreviouslyAssignedProjectList() {
 		return alreadyAssignedProjectList;
 	}
 
+	//TODO This function is never called!
 	public void setProjectsAssigned(ProjectList projectList) {
 		this.projectsAssignedList = projectList;
 	}
