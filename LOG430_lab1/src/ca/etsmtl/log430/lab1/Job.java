@@ -51,7 +51,6 @@ public class Job
 	public Job() 
 	{
 		this(null);
-		// TODO Load previous jobList
 	}
 
 	/**
@@ -61,7 +60,6 @@ public class Job
 	public Job(String id) 
 	{
 		this.setID(id);
-		// TODO Load previous JobList
 	}
 	
 	/**

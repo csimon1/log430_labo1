@@ -42,14 +42,16 @@ public class Menus {
 		char userChoice = ' ';
 		boolean error = true;
 
-		while (error) {
-
-			System.out.println("\n\n1) List resources");
+		while (error) 
+		{
+			System.out.println("\n\n0) List jobs");
+			System.out.println("1) List resources");
 			System.out.println("2) List projects");
 			System.out.println("3) List projects currently assigned to a resource");
 			System.out.println("4) List resources currently assigned to a project");
 			System.out.println("5) Assign a resource to a project");
-			System.out.println("7) List jobs(Roles) currently assigned to a project");
+			System.out.println("7) List jobs (Roles) assigned to a project");
+			System.out.println("8) Assign a job (Role) to a project");
 			System.out.println("X) Exit");
 			System.out.print("\n\nEnter your choice and press return >> ");
 

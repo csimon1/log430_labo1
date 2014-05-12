@@ -164,7 +164,7 @@ public class Displays {
 
 		//project.getResourcesAssigned().goToFrontOfList();
 		
-		// TODO Print previously Assigned jobs messages
+		// Print previously Assigned jobs messages
 		System.out.println("\nPreviously assigned jobs : ");
 		lineCheck(1);
 		
