@@ -122,4 +122,16 @@ public class Resource {
 		return projectsAssignedList;
 	}
 
+	public void getWorkChargePreviouslyAssignedProject() {
+		
+	}
+	
+	public void getWorkChargeCurrentlylyAssignedProject() {
+		
+	}
+	
+	public void getWorkCharge() {
+		
+	}
+	
 } // Resource class
