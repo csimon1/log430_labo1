@@ -174,7 +174,7 @@ public class ProjectReader extends LineOfTextFileReader {
                     break;
 
                 default : // Priority
-                    newProject.setPriority(token);
+                    newProject.setPriority(Priority.getPriority(token));
                     done = true;
                     break;
 
