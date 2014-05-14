@@ -1,5 +1,7 @@
 package ca.etsmtl.log430.lab1;
 
+import java.util.ArrayList;
+
 
 /**
  * This class displays various types of information on projects and resources
@@ -72,22 +74,6 @@ public class Displays {
 				+ resource.getLastName() + " "
 				+ resource.getRole());
 	}
-	
-	/**
-	 * Displays a job object's elements as follows: Job's ID number,
-	 * name, acronym.
-	 * 
-	 * Note that the projects previously assigned to the job and the projects
-	 * assigned to the job in this execution of the system are not displayed.
-	 * 
-	 * @param job
-	 */
-	public void displayJob(Job job) 
-	{
-		System.out.println(job.getID() + " "
-				+ job.getName() + " "
-				+ job.getAcronym());
-	}
 
 	/**
 	 * Displays a project object's elements as follows: ID, name, start date,
@@ -143,80 +129,109 @@ public class Displays {
 
 	}
 	
-	/**
-	 * Lists the jobs that have been assigned to the project.
-	 * 
-	 * @param project
-	 */
-	public void displayJobsAssignedToProject(Project project) 
+	public void displayRoles(Project paramProject, ResourceList existingResources)
 	{
-		boolean done;
-		//Resource resource;
-		Job job;
-
-		System.out.println("\nJobs assigned to: " + " "
-				+ project.getID() + " " + project.getProjectName() + " :");
-		lineCheck(1);
-
-		System.out
-				.println("===========================================================");
-		lineCheck(1);
-
-		//project.getResourcesAssigned().goToFrontOfList();
-		
-		// Print previously Assigned jobs messages
-		System.out.println("\nPreviously assigned jobs : ");
-		lineCheck(1);
-		
-		// first display previously assigned job's.
-		project.getPreviouslyJobList().goToFrontOfList();
-		
-		done = false;
-		
-		while(!done)
+		ArrayList<String> roles = new ArrayList();
+		// we going to check if the previous resources contains the actual project in the file
+		if(existingResources.itemCount() > 0)
 		{
-			job = project.getPreviouslyJobList().getNextJob();
-
-			if (job == null) 
+			// ask previous resources
+			// replacing the cursor of the list
+			existingResources.goToFrontOfList();
+			boolean doneIteratingResources = false;
+			
+			while(!doneIteratingResources)
 			{
-				done = true;
+				// check if the current resource have a project that is associated with the current project.
+				Resource r = existingResources.getNextResource();
+				
+				if(r != null)
+				{
+					// check first if the current resource have old projects that are associated with this one.
+					if(r.getPreviouslyAssignedProjectList().itemCount() > 0)
+					{
+						ProjectList previousResourceList = r.getPreviouslyAssignedProjectList();
+						boolean doneIteratingProjects = false;
+						
+						previousResourceList.goToFrontOfList();
+						
+						while(!doneIteratingProjects)
+						{
+							Project p = previousResourceList.getNextProject();
+							// if the project actually exist
+							if(p != null)
+							{
+								// compare the project Id with this current one.
+								if(p.getID().equalsIgnoreCase(paramProject.getID()))
+								{
+									// We find a resource that was associated with a project before run time!
+									if(!roles.contains(r.getRole()))
+									roles.add(r.getRole());
+								}
+							}
+							else
+							{
+								doneIteratingProjects = true;
+							}
+						}
+					}
+				}
+				else
+				{
+					doneIteratingResources = true;
+				}
+				// if it not the case then do nothing and proceed to the next resource
 			}
-			else 
-			{
-				displayJob(job);
-			} // if
 		}
 		
-		System.out
-				.println("***********************************************************");
-		
-		lineCheck(1);
-		
-		System.out.println("\nCurrent assigned jobs : ");
-		lineCheck(1);
-		
-		// display jobs from the current session
-		project.getJobsAssigned().goToFrontOfList();
-		done = false;
-
-		while (!done) 
+		// ask current resources
+		if(paramProject.getResourcesAssigned().itemCount() > 0)
 		{
-			//resource = project.getResourcesAssigned().getNextResource();
-			job = project.getJobsAssigned().getNextJob();
-
-			if (job == null) 
+			boolean done = false;
+			ResourceList resourceFromParamProject = paramProject.getResourcesAssigned();
+			resourceFromParamProject.goToFrontOfList();
+			
+			while(!done)
 			{
-				done = true;
+				Resource r = resourceFromParamProject.getNextResource();
+				
+				if(r != null)
+				{
+					if(!roles.contains(r.getRole()))
+					{
+						roles.add(r.getRole());
+					}
+				}
+				else
+				{
+					done = true;
+				}
 			}
-			else 
-			{
-				displayJob(job);
-			} // if
-		} // while
+		}
 		
-		System.out
-		.println("===========================================================");
-		lineCheck(1);
+		if(roles.isEmpty())
+		{
+			System.out.println("The project : " + paramProject.getProjectName() + "do not have ressources assigned!");
+		}
+		else
+		{
+			System.out.println("\nRoles assigned to: " + " "
+					+ paramProject.getID() + " " + paramProject.getProjectName() + " :");
+			lineCheck(1);
+
+			System.out
+					.println("===========================================================");
+			lineCheck(1);
+
+			for(String elem: roles)
+			{
+				System.out.println(elem);
+			}
+			
+			System.out
+			.println("===========================================================");
+			lineCheck(1);
+		}
 	}
 
 	/**
@@ -330,38 +345,5 @@ public class Displays {
 
 		} // while
 
-	}
-	
-	/**
-	 * Displays the jobs in a job list. Displays the same information
-	 * that is listed in the displayJob() method listed above.
-	 * 
-	 * @param list the list of jobs.
-	 */
-	public void displayJobList(JobList list) 
-	{
-		boolean done;
-		Job job;
-
-		System.out.print("\n");
-		lineCheck(1);
-
-		list.goToFrontOfList();
-
-		done = false;
-
-		while (!done)
-		{
-			job = list.getNextJob();
-
-			if (job == null) 
-			{
-				done = true;
-			} else 
-			{
-				displayJob(job);
-				lineCheck(1);
-			} // if
-		} // while
 	}
 } // Display

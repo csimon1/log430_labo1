@@ -101,5 +101,14 @@ public class List {
 		vectorIndex = 0;
 
 	} // goToFrontOfList
+	
+	/**
+	 * Obtains the number of elements in the list.
+	 * @return the number of element in the list
+	 */
+	int itemCount()
+	{
+		return itemList.size();
+	}
 
 } // List Class

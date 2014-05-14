@@ -183,18 +183,11 @@ public class ProjectReader extends LineOfTextFileReader {
                     tokenCount++;
                     break;
                     
-                case 4 : // Priority
+                default: // Priority
                 	newProject.setPriority(token);
                     frontIndex = backIndex +1;
-                    tokenCount++;
+                    //tokenCount++;
                     break;
-                    
-                default : // Previously jobs assigned
-                    newProject.getPreviouslyJobList().addJob(new Job(token));
-                    //done = true;
-                    frontIndex = backIndex + 1;
-                    break;
-
             } // end switch
 
         } // end while
