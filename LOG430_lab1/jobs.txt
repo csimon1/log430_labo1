@@ -1,4 +1,0 @@
-J001 Analyst ANA P001 P003
-J002 Designer DES P002
-J003 Programmer PRG  P004
-J004 Tester TST P004
