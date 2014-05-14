@@ -54,7 +54,7 @@ public class Project {
 	/**
 	 * Project priority
 	 */
-	private String priority;
+	private Priority priority;
 
 	/**
 	 * List of resources assigned to the project
@@ -110,11 +110,11 @@ public class Project {
 		return endDate;
 	}
 
-	public String getPriority() {
+	public Priority getPriority() {
 		return priority;
 	}
 
-	public void setPriority(String priority) {
+	public void setPriority(Priority priority) {
 		this.priority = priority;
 	}
 
