@@ -14,12 +14,15 @@ package ca.etsmtl.log430.lab1;
  *    X) Exit.</pre>
  * 
  * @author A.J. Lattanze, CMU
- * @version 1.5, 2013-Sep-13.
+ * @version 1.6, 2014-May-07.
+ * - Added comments
  */
 
 /*
  * Modification Log
  * ***************************************************************************
+ * v1.6, S. Abraham  , 2014-May-07 - Added comments and refactoring.
+ * 
  * v1.5, R. Champagne, 2013-Sep-13 - Various refactorings for new lab.
  * 
  * v1.4, R. Champagne, 2012-May-31 - Various refactorings for new lab.
@@ -33,17 +36,23 @@ package ca.etsmtl.log430.lab1;
  * v1.0, 12/29/99, A.J. Lattanze - Original version.
  * ***************************************************************************
  */
-
-public class Menus {
-
-	public char mainMenu() {
-
+public class Menus 
+{
+	/**
+	 * This method show the actual menu and
+	 * prompt the user to select an option from the menu.
+	 * @return the character selected by the user.
+	 */
+	public char mainMenu() 
+	{
 		Termio terminal = new Termio();
 		char userChoice = ' ';
-		boolean error = true;
+		boolean valid = true;
 
-		while (error) 
+
+		while (valid) 
 		{
+
 			System.out.println("1) List resources");
 			System.out.println("2) List projects");
 			System.out.println("3) List projects currently assigned to a resource");
@@ -59,13 +68,14 @@ public class Menus {
 					&& (userChoice < '1') && (userChoice != '2')
 					&& (userChoice != '3') && (userChoice < '4')
 					&& (userChoice != '5') && (userChoice != '7')) {
-
+				
 				System.out.print("\n\n*** Invalid Choice:: " + userChoice
 						+ " ***");
 
-			} else {
-
-				error = false;
+			} 
+			else 
+			{
+				valid = false;
 
 			} // if
 
@@ -74,9 +84,16 @@ public class Menus {
 		return (userChoice);
 
 	} // MainMenu
-
-	public Resource pickResource(ResourceList list) {
-
+	
+	/**
+	 * This method iterate throughout a resource list and return a RessourceList object by asking the user
+	 * to enter a Resource ID via keyboard.
+	 * 
+	 * @param list the ResourceList object to iterate
+	 * @return the Resource object or null if not
+	 */
+	public Resource pickResource(ResourceList list) 
+	{
 		Termio terminal = new Termio();
 		String userChoice;
 		Resource resource = null;
@@ -86,19 +103,23 @@ public class Menus {
 
 		resource = list.findResourceByID(userChoice);
 
-		if (resource == null) {
-
+		if (resource == null) 
+		{
 			System.out.println("\n\n*** Resource ID " + userChoice
 					+ " not found ***");
-
 		} // if
 
 		return (resource);
-
 	}
 
-	public Project pickProject(ProjectList list) {
-
+	/**
+	 * This method iterate throughout a project list and return a ProjectList object by asking the user
+	 * to enter a Project ID via keyboard.
+	 * @param list the ProjectList object to iterate
+	 * @return the Project object or null if not.
+	 */
+	public Project pickProject(ProjectList list) 
+	{
 		Termio terminal = new Termio();
 		String userChoiceProjectID;
 		Project project = null;
@@ -108,9 +129,9 @@ public class Menus {
 
 		project = list.findProjectByID(userChoiceProjectID);
 
-		if (project == null) {
+		if (project == null) 
+		{
 			System.out.print("\n\n*** Project ID:" + userChoiceProjectID + " not found ***");
-
 		} // if
 
 		return (project);

@@ -6,11 +6,13 @@ import java.util.ArrayList;
 /** This class defines the Project object for the system.
 * 
 * @author A.J. Lattanze, CMU
-* @version 1.7, 2013-Sep-13
+* @version 1.8, 2014-May-07
 */
 
 /*
 * Modification Log **********************************************************
+* v1.8, S. Abraham,   2014-May-07 - Added comments
+* 
 * v1.7, R. Champagne, 2013-Sep-13 - Various refactorings for new lab.
 * 
 * v1.6, R. Champagne, 2012-Jun-19 - Various refactorings for new lab.
@@ -30,9 +32,8 @@ import java.util.ArrayList;
 * v1.0, A.J. Lattanze, 12/29/99 - Original version.
 * ***************************************************************************
 */
-
-public class Project {
-
+public class Project 
+{
 	/**
 	 * Project ID
 	 */
@@ -61,168 +62,144 @@ public class Project {
 	/**
 	 * List of resources assigned to the project
 	 */
-	private ResourceList resourcesAssigned = new ResourceList();
+	private ResourceList resourcesAssigned;// = new ResourceList();
+	
+	/**
+	 * Default constructor.
+	 */
 
 	public Project() 
 	{
 		this(null);
-		// TODO Load previous jobList
 	}
 
+	/**
+	 * This function is the Class Constructor.
+	 * @param id the project ID
+	 */
 	public Project(String id) 
 	{
+		resourcesAssigned = new ResourceList();
+
 		this.setID(id);
-		// TODO Load previous JobList
 	}
 
 	/**
 	 * Assign a resource to a project.
 	 * 
-	 * @param resource
+	 * @param resource the Ressource object to assign
 	 */
-	public void assignResource(Resource resource) {
+	public void assignResource(Resource resource) 
+	{
 		resourcesAssigned.addResource(resource);
 	}
 
-	public void setID(String projectID) {
+	/**
+	 * This function change the project ID.
+	 * @param projectID the project ID to change.
+	 */
+	public void setID(String projectID) 
+	{
 		this.id = projectID;
 	}
-
-	public String getID() {
+	
+	/**
+	 * This function return the project ID.
+	 * @return the project ID
+	 */
+	public String getID() 
+	{
 		return id;
 	}
 
-	public void setProjectName(String time) {
-		this.name = time;
+	/**
+	 * This function modifies the project name.
+	 * @param name the project name 
+	 */
+	public void setProjectName(String name) 
+	{
+		this.name = name;
 	}
-
-	public String getProjectName() {
+	
+	/**
+	 * This function return the project name.
+	 * @return the project name
+	 */
+	public String getProjectName() 
+	{
 		return name;
 	}
 
-	public void setStartDate(String startDate) {
+	/**
+	 * This function modifies the startDate of the project.
+	 * @param startDate the start date of the project
+	 */
+	public void setStartDate(String startDate) 
+	{
 		this.startDate = startDate;
 	}
-
-	public String getStartDate() {
+	
+	/**
+	 * This function return the start date of the project.
+	 * @return the project start date
+	 */
+	public String getStartDate() 
+	{
 		return startDate;
 	}
-
-	public void setEndDate(String endDate) {
+	
+	/**
+	 * This function modifies the end date of the project.
+	 * @param endDate the end date of the project
+	 */
+	public void setEndDate(String endDate) 
+	{
 		this.endDate = endDate;
 	}
 
-	public String getEndDate() {
+	/**
+	 * This function return the end date of the project.
+	 * @return the end date of the project
+	 */
+	public String getEndDate() 
+	{
 		return endDate;
 	}
 
-	public String getPriority() {
+	/**
+	 * This function return the priority of the project.
+	 * @return the priority of the project
+	 */
+	public String getPriority() 
+	{
 		return priority;
 	}
 
-	public void setPriority(String priority) {
+	/**
+	 * This function modifies the priority of the project.
+	 * @param priority the priority of the project
+	 */
+	public void setPriority(String priority) 
+	{
 		this.priority = priority;
 	}
 
-	public void setResourcesAssigned(ResourceList resourcesAssigned) {
+	/**
+	 * This function assign a new list of ressources to the project.
+	 * @param resourcesAssigned RessourceList object to assign to the project
+	 */
+	public void setResourcesAssigned(ResourceList resourcesAssigned) 
+	{
 		this.resourcesAssigned = resourcesAssigned;
 	}
-
-	public ResourceList getResourcesAssigned() {
-		return resourcesAssigned;
-	}
 	
-	
-	public void displayRoles(ResourceList existingResources)
+	/**
+	 * This function return a ressource list object.
+	 * @return The RessourceList object
+	 */
+	public ResourceList getResourcesAssigned() 
 	{
-		ArrayList<String> roles = new ArrayList();
-		// we going to check if the previous resources contains the actual project in the file
-		if(existingResources.itemCount() > 0)
-		{
-			// ask previous resources
-			// replacing the cursor of the list
-			existingResources.goToFrontOfList();
-			boolean doneIteratingResources = false;
-			
-			while(!doneIteratingResources)
-			{
-				// check if the current resource have a project that is associated with the current project.
-				Resource r = existingResources.getNextResource();
-				
-				if(r != null)
-				{
-					// check first if the current resource have old projects that are associated with this one.
-					if(r.getPreviouslyAssignedProjectList().itemCount() > 0)
-					{
-						ProjectList previousResourceList = r.getPreviouslyAssignedProjectList();
-						boolean doneIteratingProjects = false;
-						
-						previousResourceList.goToFrontOfList();
-						
-						while(!doneIteratingProjects)
-						{
-							Project p = previousResourceList.getNextProject();
-							// if the project actually exist
-							if(p != null)
-							{
-								// compare the project Id with this current one.
-								if(p.getID().equalsIgnoreCase(this.getID()))
-								{
-									// We find a resource that was associated with a project before run time!
-									if(!roles.contains(r.getRole()))
-									roles.add(r.getRole());
-								}
-							}
-							else
-							{
-								doneIteratingProjects = true;
-							}
-						}
-					}
-				}
-				else
-				{
-					doneIteratingResources = true;
-				}
-				// if it not the case then do nothing and proceed to the next resource
-			}
-		}
-		
-		// ask current resources
-		if(resourcesAssigned.itemCount() > 0)
-		{
-			boolean done = false;
-			resourcesAssigned.goToFrontOfList();
-			
-			while(!done)
-			{
-				Resource r = resourcesAssigned.getNextResource();
-				
-				if(r != null)
-				{
-					if(!roles.contains(r.getRole()))
-					{
-						roles.add(r.getRole());
-					}
-				}
-				else
-				{
-					done = true;
-				}
-			}
-		}
-		
-		if(roles.isEmpty())
-		{
-			System.out.println("The project : " + this.getProjectName() + "do not have ressources assigned!");
-		}
-		else
-		{
-			for(String elem: roles)
-			{
-				System.out.println(elem);
-			}
-		}
+		return resourcesAssigned;
 	}
 
 } // Project class
