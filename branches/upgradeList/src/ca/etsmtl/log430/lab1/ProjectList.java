@@ -7,12 +7,14 @@ package ca.etsmtl.log430.lab1;
  * storage and retrieval of the Project object from the list.
  * 
  * @author A.J. Lattanze, CMU
- * @version 1.6, 2013-Sep-13
+ * @version 1.7, 2014-May-07
  */
 
 /*
  * Modification Log
  * ****************************************************************************
+ * v1.7, S. Abraham  , 2014-May-07 - Added comments.
+ *  
  * v1.6, R. Champagne, 2013-Sep-13 - Various refactorings for new lab.
  * 
  * v1.5, R. Champagne, 2012-Jun-19 - Various refactorings for new lab.
@@ -36,6 +38,9 @@ public class ProjectList extends List<Project> {
 	 */
 	private static final long serialVersionUID = -3023403675352237422L;
 
+	/**
+	 * Default Constructor and call the parent class's constructor.
+	 */
 	public ProjectList() {
 		super();
 	}
@@ -73,20 +78,21 @@ public class ProjectList extends List<Project> {
 		boolean done = false;
 		boolean result = false;
 
-		goToFrontOfList();
+		goToFrontOfList();// parent method call super.goToFrontOfList...
 
-		while (!done) {
-
+		while (!done) 
+		{
 			currentObject = getNextProject();
 
-			if (currentObject == null) {
-
+			if (currentObject == null) 
+			{
 				done = true;
 
-			} else {
-				if (project.getID().compareToIgnoreCase(
-						currentObject.getID()) == 0) {
-
+			} 
+			else 
+			{
+				if (project.getID().compareToIgnoreCase(currentObject.getID()) == 0) 
+				{
 					result = true;
 
 				} // if
@@ -96,36 +102,41 @@ public class ProjectList extends List<Project> {
 		} // while
 
 		return (result);
-
 	}
 
-	public Project findProjectByID(String id) {
-
+	/**
+	 * This function iterates throughout the list of project and return the 
+	 * project if it exist or null if not.
+	 * @param id the project ID
+	 * @return the Project object or null
+	 */
+	public Project findProjectByID(String id){
 		Project currentObject;
 		Project returnValue = null;
 		boolean done = false;
 
-		goToFrontOfList();
+		goToFrontOfList();// parent method call super.goToFrontOfList...
 
-		while (!done) {
-
+		while (!done) 
+		{
 			currentObject = getNextProject();
 
-			if (currentObject == null) {
-
+			if (currentObject == null) 
+			{
 				done = true;
 
-			} else {
-				if (id.compareToIgnoreCase(currentObject.getID()) == 0) {
+			} 
+			else 
+			{
+				if (id.compareToIgnoreCase(currentObject.getID()) == 0) 
+				{
 					returnValue = currentObject;
 					done = true;
 
 				} // if
-
 			} // if
-
 		} // while
+		
 		return(returnValue);
 	}
-	
 } // ProjectList

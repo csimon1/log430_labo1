@@ -7,14 +7,16 @@ package ca.etsmtl.log430.lab1;
  * ProjectList object that maintains a list of projects that the resource was
  * already assigned to prior to this execution of the system.
  * projectsAssignedList is also a ProjectList object that maintains a list of
- * projects assigned to the resource durint the current execution or session.
+ * projects assigned to the resource during the current execution or session.
  * 
  * @author A.J. Lattanze, CMU
- * @version 1.6, 2013-Sep-13
+ * @version 1.7, 2014-May-07
  */
 
 /* Modification Log
  ****************************************************************************
+ * v1.7, S. Abraham  , 2014-May-07 - Added comments
+ *
  * v1.6, R. Champagne, 2013-Sep-13 - Various refactorings for new lab.
  * 
  * v1.5, R. Champagne, 2012-Jun-19 - Various refactorings for new lab.
@@ -31,8 +33,8 @@ package ca.etsmtl.log430.lab1;
 
  ****************************************************************************/
 
-public class Resource {
-
+public class Resource 
+{
 	/**
 	 * Resource's last name
 	 */
@@ -66,59 +68,129 @@ public class Resource {
 	/**
 	 * Assigns a project to a resource.
 	 * 
-	 * @param project
+	 * @param project the project to assign
 	 */
-	public void assignProject(Project project) {
-
+	public void assignProject(Project project) 
+	{
 		getProjectsAssigned().addProject(project);
 
 	}
 
-	public void setLastName(String lastName) {
+	/**
+	 * This function modifies the last name.
+	 * @param lastName the last name to change
+	 */
+	public void setLastName(String lastName) 
+	{
 		this.lastName = lastName;
 	}
 
-	public String getLastName() {
+	/**
+	 * This function return the last name.
+	 * @return the last name
+	 */
+	public String getLastName() 
+	{
 		return lastName;
 	}
 
-	public void setFirstName(String firstName) {
+	/**
+	 * This function modifies the first name. 
+	 * @param firstName the first name to change
+	 */
+	public void setFirstName(String firstName) 
+	{
 		this.firstName = firstName;
 	}
 
-	public String getFirstName() {
+	/**
+	 * This function return the first name.
+	 * @return the first name
+	 */
+	public String getFirstName() 
+	{
 		return firstName;
 	}
 
-	public void setID(String id) {
+	/**
+	 * This function modifies the resource ID.
+	 * @param id the resource id to change
+	 */
+	public void setID(String id) 
+	{
 		this.id = id;
 	}
 
-	public String getID() {
+	/**
+	 * This function return the resource ID.
+	 * @return the resource id
+	 */
+	public String getID() 
+	{
 		return id;
 	}
 
-	public void setRole(String role) {
+
+	/**
+	 * This function modifies the resource's role.
+	 * @param role the new role to modifies
+	 */
+	public void setRole(String role) 
+	{
 		this.role = role;
 	}
+	
+	//TODO set the role by using the job's Acronym variable once everything works perfectly.
+	/*
+	public void setRole(String jobAcronym)
+	{
+		this.role = jobAcronym;
+	}*/
 
-	public String getRole() {
+	/**
+	 * This function returns the resource's role.
+	 * @return the role
+	 */
+	public String getRole() 
+	{
 		return role;
 	}
 
+	/**
+	 * This function modifies the previous project list.
+	 * @param projectList the previous project list to assign
+	 */
+	//TODO This function is never called!
 	public void setPreviouslyAssignedProjectList(ProjectList projectList) {
+
 		this.alreadyAssignedProjectList = projectList;
 	}
 
+	/**
+	 * This function return the previous project list.
+	 * @return the current project list.
+	 */
+
+	
 	public ProjectList getPreviouslyAssignedProjectList() {
 		return alreadyAssignedProjectList;
 	}
-
+	
+	/**
+	 * This function modifies the current project list.
+	 * @param projectList the current project list
+	 */
+	//TODO This function is never called!
 	public void setProjectsAssigned(ProjectList projectList) {
 		this.projectsAssignedList = projectList;
 	}
 
-	public ProjectList getProjectsAssigned() {
+	/**
+	 * This function return the list of the project assigned to the current session.
+	 * @return the current project assigned to this session
+	 */
+	public ProjectList getProjectsAssigned() 
+	{
 		return projectsAssignedList;
 	}
 
