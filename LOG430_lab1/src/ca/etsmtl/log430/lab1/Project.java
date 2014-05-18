@@ -1,5 +1,7 @@
 package ca.etsmtl.log430.lab1;
 
+import java.util.ArrayList;
+
 
 /** This class defines the Project object for the system.
 * 
@@ -65,10 +67,10 @@ public class Project
 	/**
 	 * Default constructor.
 	 */
+
 	public Project() 
 	{
 		this(null);
-		resourcesAssigned = new ResourceList();
 	}
 	
 	/**
@@ -197,5 +199,97 @@ public class Project
 	public ResourceList getResourcesAssigned() 
 	{
 		return resourcesAssigned;
+	}
+	
+	public void displayRoles(ResourceList existingResources)
+	{
+		ArrayList<String> roles = new ArrayList();
+		// we going to check if the previous resources contains the actual project in the file
+		if(existingResources.itemCount() > 0)
+		{
+			// ask previous resources
+			// replacing the cursor of the list
+			existingResources.goToFrontOfList();
+			boolean doneIteratingResources = false;
+			
+			while(!doneIteratingResources)
+			{
+				// check if the current resource have a project that is associated with the current project.
+				Resource r = existingResources.getNextResource();
+				
+				if(r != null)
+				{
+					// check first if the current resource have old projects that are associated with this one.
+					if(r.getPreviouslyAssignedProjectList().itemCount() > 0)
+					{
+						ProjectList previousResourceList = r.getPreviouslyAssignedProjectList();
+						boolean doneIteratingProjects = false;
+						
+						previousResourceList.goToFrontOfList();
+						
+						while(!doneIteratingProjects)
+						{
+							Project p = previousResourceList.getNextProject();
+							// if the project actually exist
+							if(p != null)
+							{
+								// compare the project Id with this current one.
+								if(p.getID().equalsIgnoreCase(this.getID()))
+								{
+									// We find a resource that was associated with a project before run time!
+									if(!roles.contains(r.getRole()))
+									roles.add(r.getRole());
+								}
+							}
+							else
+							{
+								doneIteratingProjects = true;
+							}
+						}
+					}
+				}
+				else
+				{
+					doneIteratingResources = true;
+				}
+				// if it not the case then do nothing and proceed to the next resource
+			}
+		}
+		
+		// ask current resources
+		if(resourcesAssigned.itemCount() > 0)
+		{
+			boolean done = false;
+			resourcesAssigned.goToFrontOfList();
+			
+			while(!done)
+			{
+				Resource r = resourcesAssigned.getNextResource();
+				
+				if(r != null)
+				{
+					if(!roles.contains(r.getRole()))
+					{
+						roles.add(r.getRole());
+					}
+				}
+				else
+				{
+					done = true;
+				}
+			}
+		}
+		
+		if(roles.isEmpty())
+		{
+			System.out.println("The project : " + this.getProjectName() + "do not have ressources assigned!");
+		}
+		else
+		{
+			for(String elem: roles)
+			{
+				System.out.println(elem);
+			}
+		}
 	}
 } // Project class

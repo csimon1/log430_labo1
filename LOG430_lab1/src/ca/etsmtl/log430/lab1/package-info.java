@@ -12,6 +12,7 @@
  *    3) List projects currently assigned to a resource
  *    4) List resources currently assigned to a project
  *    5) Assign a resource to a project
+ *    7) List jobs(Roles) currently assigned to a project
  *    X) Exit.
  * </pre>
  * 
@@ -32,6 +33,10 @@
  * an example). The format of this file is listed in the
  * {@link ca.etsmtl.log430.lab1.ProjectReader ProjectReader} class header.<br><br>
  * 
+ * The project objects are initialized from another file (<tt>jobs.txt</tt> is
+ * an example). The format of this file is listed in the
+ * {@link ca.etsmtl.log430.lab1.JobReader JobReader} class header.<br><br>
+ * 
  * <b>Running the program:</b><br><br>
  * 
  * <blockquote>
@@ -39,11 +44,12 @@
  * 
  * <b>With the supplied example files:</b><br><br>
  * 
- * <tt>java ResourceAssignment projects.txt resources.txt</tt><br><br>
+ * <tt>java ResourceAssignment projects.txt resources.txt jobs.txt</tt><br><br>
  * </blockquote>
  *
  * @author A.J. Lattanze - CMU - 1999
  * @author Roger Champagne - ETS - 2002-2013
- * @version 2013-Sep-13
+ * @author Samuel Abraham  - ETS - 2012-2014
+ * @version 2014-May-11
  */
 package ca.etsmtl.log430.lab1;

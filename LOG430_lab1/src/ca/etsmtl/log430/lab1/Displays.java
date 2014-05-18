@@ -1,5 +1,7 @@
 package ca.etsmtl.log430.lab1;
 
+import java.util.ArrayList;
+
 
 /**
  * This class displays various types of information on projects and resources
@@ -129,6 +131,111 @@ public class Displays
 
 		} // while
 	}
+	
+	public void displayRoles(Project paramProject, ResourceList existingResources)
+	{
+		ArrayList<String> roles = new ArrayList();
+		// we going to check if the previous resources contains the actual project in the file
+		if(existingResources.itemCount() > 0)
+		{
+			// ask previous resources
+			// replacing the cursor of the list
+			existingResources.goToFrontOfList();
+			boolean doneIteratingResources = false;
+			
+			while(!doneIteratingResources)
+			{
+				// check if the current resource have a project that is associated with the current project.
+				Resource r = existingResources.getNextResource();
+				
+				if(r != null)
+				{
+					// check first if the current resource have old projects that are associated with this one.
+					if(r.getPreviouslyAssignedProjectList().itemCount() > 0)
+					{
+						ProjectList previousResourceList = r.getPreviouslyAssignedProjectList();
+						boolean doneIteratingProjects = false;
+						
+						previousResourceList.goToFrontOfList();
+						
+						while(!doneIteratingProjects)
+						{
+							Project p = previousResourceList.getNextProject();
+							// if the project actually exist
+							if(p != null)
+							{
+								// compare the project Id with this current one.
+								if(p.getID().equalsIgnoreCase(paramProject.getID()))
+								{
+									// We find a resource that was associated with a project before run time!
+									if(!roles.contains(r.getRole()))
+									roles.add(r.getRole());
+								}
+							}
+							else
+							{
+								doneIteratingProjects = true;
+							}
+						}
+					}
+				}
+				else
+				{
+					doneIteratingResources = true;
+				}
+				// if it not the case then do nothing and proceed to the next resource
+			}
+		}
+		
+		// ask current resources
+		if(paramProject.getResourcesAssigned().itemCount() > 0)
+		{
+			boolean done = false;
+			ResourceList resourceFromParamProject = paramProject.getResourcesAssigned();
+			resourceFromParamProject.goToFrontOfList();
+			
+			while(!done)
+			{
+				Resource r = resourceFromParamProject.getNextResource();
+				
+				if(r != null)
+				{
+					if(!roles.contains(r.getRole()))
+					{
+						roles.add(r.getRole());
+					}
+				}
+				else
+				{
+					done = true;
+				}
+			}
+		}
+		
+		if(roles.isEmpty())
+		{
+			System.out.println("The project : " + paramProject.getProjectName() + "do not have ressources assigned!");
+		}
+		else
+		{
+			System.out.println("\nRoles assigned to: " + " "
+					+ paramProject.getID() + " " + paramProject.getProjectName() + " :");
+			lineCheck(1);
+
+			System.out
+					.println("===========================================================");
+			lineCheck(1);
+
+			for(String elem: roles)
+			{
+				System.out.println(elem);
+			}
+			
+			System.out
+			.println("===========================================================");
+			lineCheck(1);
+		}
+	}
 
 	/**
 	 * Lists the projects currently assigned to a resource during this session.
@@ -237,5 +344,4 @@ public class Displays
 			} // if
 		} // while
 	}
-	
 } // Display
