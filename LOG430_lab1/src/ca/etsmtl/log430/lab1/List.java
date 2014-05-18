@@ -9,12 +9,14 @@ import java.util.Vector;
  * used in this application.
  * 
  * @author A.J. Lattanze, CMU
- * @version 1.4, 2013-Sep-13
+ * @version 1.6, 2014-May-18
  */
 
 /* Modification Log
  **************************************************************************************
- * v1.5, 18-May-2014 Charly Simon change to extends ArrayList and implements List<T>
+ * v1.6, 18-May-2014 Charly Simon change to extends ArrayList and implements List<T>
+ *
+ * v1.5, S. Abraham  , 2014-May-10 - Formated curly bracket for easy reading.
  *
  * v1.4, R. Champagne, 2013-Sep-13 - Various refactorings to make classe
  *       independant of future changes..
@@ -45,7 +47,6 @@ public class List<E> extends ArrayList<E> implements java.util.List<E> {
 	public List(Collection<? extends E> c) {
 		super(c);
 	
-
 	} // Constructor
 	
 	public List(int initialCapacity) {
@@ -64,7 +65,6 @@ public class List<E> extends ArrayList<E> implements java.util.List<E> {
 	public void appendItemToList(E item) {
 
 		super.add(item);
-
 	} // Append Item
 
 	/**

@@ -4,11 +4,13 @@ package ca.etsmtl.log430.lab1;
 /** This class defines the Project object for the system.
 * 
 * @author A.J. Lattanze, CMU
-* @version 1.7, 2013-Sep-13
+* @version 1.8, 2014-May-07
 */
 
 /*
 * Modification Log **********************************************************
+* v1.8, S. Abraham,   2014-May-07 - Added comments
+* 
 * v1.7, R. Champagne, 2013-Sep-13 - Various refactorings for new lab.
 * 
 * v1.6, R. Champagne, 2012-Jun-19 - Various refactorings for new lab.
@@ -28,9 +30,8 @@ package ca.etsmtl.log430.lab1;
 * v1.0, A.J. Lattanze, 12/29/99 - Original version.
 * ***************************************************************************
 */
-
-public class Project {
-
+public class Project 
+{
 	/**
 	 * Project ID
 	 */
@@ -59,71 +60,142 @@ public class Project {
 	/**
 	 * List of resources assigned to the project
 	 */
-	private ResourceList resourcesAssigned = new ResourceList();
-
-	public Project() {
+	private ResourceList resourcesAssigned;// = new ResourceList();
+	
+	/**
+	 * Default constructor.
+	 */
+	public Project() 
+	{
 		this(null);
+		resourcesAssigned = new ResourceList();
 	}
-
-	public Project(String id) {
+	
+	/**
+	 * This function is the Class Constructor.
+	 * @param id the project ID
+	 */
+	public Project(String id) 
+	{
+		resourcesAssigned = new ResourceList();
 		this.setID(id);
 	}
 
 	/**
 	 * Assign a resource to a project.
 	 * 
-	 * @param resource
+	 * @param resource the Ressource object to assign
 	 */
-	public void assignResource(Resource resource) {
+	public void assignResource(Resource resource) 
+	{
 		resourcesAssigned.addResource(resource);
 	}
 
-	public void setID(String projectID) {
+	/**
+	 * This function change the project ID.
+	 * @param projectID the project ID to change.
+	 */
+	public void setID(String projectID) 
+	{
 		this.id = projectID;
 	}
-
-	public String getID() {
+	
+	/**
+	 * This function return the project ID.
+	 * @return the project ID
+	 */
+	public String getID() 
+	{
 		return id;
 	}
 
-	public void setProjectName(String time) {
-		this.name = time;
+	/**
+	 * This function modifies the project name.
+	 * @param name the project name 
+	 */
+	public void setProjectName(String name) 
+	{
+		this.name = name;
 	}
-
-	public String getProjectName() {
+	
+	/**
+	 * This function return the project name.
+	 * @return the project name
+	 */
+	public String getProjectName() 
+	{
 		return name;
 	}
 
-	public void setStartDate(String startDate) {
+	/**
+	 * This function modifies the startDate of the project.
+	 * @param startDate the start date of the project
+	 */
+	public void setStartDate(String startDate) 
+	{
 		this.startDate = startDate;
 	}
-
-	public String getStartDate() {
+	
+	/**
+	 * This function return the start date of the project.
+	 * @return the project start date
+	 */
+	public String getStartDate() 
+	{
 		return startDate;
 	}
-
-	public void setEndDate(String endDate) {
+	
+	/**
+	 * This function modifies the end date of the project.
+	 * @param endDate the end date of the project
+	 */
+	public void setEndDate(String endDate) 
+	{
 		this.endDate = endDate;
 	}
 
-	public String getEndDate() {
+	/**
+	 * This function return the end date of the project.
+	 * @return the end date of the project
+	 */
+	public String getEndDate() 
+	{
 		return endDate;
 	}
 
-	public String getPriority() {
+	/**
+	 * This function return the priority of the project.
+	 * @return the priority of the project
+	 */
+	public String getPriority() 
+	{
 		return priority;
 	}
 
-	public void setPriority(String priority) {
+	/**
+	 * This function modifies the priority of the project.
+	 * @param priority the priority of the project
+	 */
+	public void setPriority(String priority) 
+	{
 		this.priority = priority;
 	}
 
-	public void setResourcesAssigned(ResourceList resourcesAssigned) {
+	/**
+	 * This function assign a new list of ressources to the project.
+	 * @param resourcesAssigned RessourceList object to assign to the project
+	 */
+	public void setResourcesAssigned(ResourceList resourcesAssigned) 
+	{
 		this.resourcesAssigned = resourcesAssigned;
 	}
-
-	public ResourceList getResourcesAssigned() {
+	
+	/**
+	 * This function return a ressource list object.
+	 * @return The RessourceList object
+	 */
+	public ResourceList getResourcesAssigned() 
+	{
 		return resourcesAssigned;
 	}
-
 } // Project class
