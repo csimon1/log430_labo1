@@ -1,17 +1,21 @@
 package ca.etsmtl.log430.lab1;
 
+import java.util.ArrayList;
+
 
 /**
  * This class displays various types of information on projects and resources
  * (individually and as lists) to the screen.
  * 
  * @author A.J. Lattanze, CMU
- * @version 1.6, 2013-Sep-13
+ * @version 1.7, 2014-May-09
  */
 
 /*
  * Modification Log
  * ************************************************************************
+ * v1.7, S. Abraham  , 2014-May-09 - Formating text for easier reading. 
+ * 
  * v1.6, R. Champagne, 2013-Sep-13 - Various refactorings for new lab.
  * 
  * v1.5, R. Champagne, 2012-Jun-19 - Various refactorings for new lab.
@@ -26,8 +30,8 @@ package ca.etsmtl.log430.lab1;
  * ************************************************************************
  */
 
-public class Displays {
-
+public class Displays 
+{
 	private int lineCount = 0;
 	private int maxLinesDisplayed = 18;
 
@@ -38,22 +42,22 @@ public class Displays {
 	 * 
 	 * @param linesToAdd
 	 */
-	private void lineCheck(int linesToAdd) {
-
+	private void lineCheck(int linesToAdd) 
+	{
 		Termio terminal = new Termio();
 
-		if (lineCount >= maxLinesDisplayed) {
-
+		if (lineCount >= maxLinesDisplayed) 
+		{
 			lineCount = 0;
 			System.out.print("\n*** Press Enter To Continue ***");
 			terminal.keyboardReadChar();
 
-		} else {
-
+		}
+		else 
+		{
 			lineCount += linesToAdd;
 
 		} // if
-
 	} // LineCheck
 
 	/**
@@ -65,8 +69,8 @@ public class Displays {
 	 * 
 	 * @param resource
 	 */
-	public void displayResource(Resource resource) {
-
+	public void displayResource(Resource resource) 
+	{
 		System.out.println(resource.getID() + " "
 				+ resource.getFirstName() + " "
 				+ resource.getLastName() + " "
@@ -80,7 +84,8 @@ public class Displays {
 	 * 
 	 * @param project
 	 */
-	public void displayProject(Project project) {
+	public void displayProject(Project project) 
+	{
 		System.out.println(project.getID() + " "
 				+ project.getProjectName() + " "
 				+ project.getStartDate() + " "
@@ -89,12 +94,12 @@ public class Displays {
 	}
 
 	/**
-	 * Lists the resources that have been assigned to the project.
+	 * Lists all the resources that have been assigned to the project.
 	 * 
-	 * @param project
+	 * @param project the project object.
 	 */
-	public void displayResourcesAssignedToProject(Project project) {
-
+	public void displayResourcesAssignedToProject(Project project) 
+	{
 		boolean done;
 		Resource resource;
 
@@ -109,22 +114,127 @@ public class Displays {
 		project.getResourcesAssigned().goToFrontOfList();
 		done = false;
 
-		while (!done) {
-
+		while (!done) 
+		{
 			resource = project.getResourcesAssigned().getNextResource();
 
-			if (resource == null) {
-
+			if (resource == null) 
+			{
 				done = true;
 
-			} else {
-
+			}
+			else 
+			{
 				displayResource(resource);
 
 			} // if
 
 		} // while
+	}
+	
+	public void displayRoles(Project paramProject, ResourceList existingResources)
+	{
+		ArrayList<String> roles = new ArrayList();
+		// we going to check if the previous resources contains the actual project in the file
+		if(existingResources.size() > 0)
+		{
+			// ask previous resources
+			// replacing the cursor of the list
+			existingResources.goToFrontOfList();
+			boolean doneIteratingResources = false;
+			
+			while(!doneIteratingResources)
+			{
+				// check if the current resource have a project that is associated with the current project.
+				Resource r = existingResources.getNextResource();
+				
+				if(r != null)
+				{
+					// check first if the current resource have old projects that are associated with this one.
+					if(r.getPreviouslyAssignedProjectList().size() > 0)
+					{
+						ProjectList previousResourceList = r.getPreviouslyAssignedProjectList();
+						boolean doneIteratingProjects = false;
+						
+						previousResourceList.goToFrontOfList();
+						
+						while(!doneIteratingProjects)
+						{
+							Project p = previousResourceList.getNextProject();
+							// if the project actually exist
+							if(p != null)
+							{
+								// compare the project Id with this current one.
+								if(p.getID().equalsIgnoreCase(paramProject.getID()))
+								{
+									// We find a resource that was associated with a project before run time!
+									if(!roles.contains(r.getRole()))
+									roles.add(r.getRole());
+								}
+							}
+							else
+							{
+								doneIteratingProjects = true;
+							}
+						}
+					}
+				}
+				else
+				{
+					doneIteratingResources = true;
+				}
+				// if it not the case then do nothing and proceed to the next resource
+			}
+		}
+		
+		// ask current resources
+		if(paramProject.getResourcesAssigned().size() > 0)
+		{
+			boolean done = false;
+			ResourceList resourceFromParamProject = paramProject.getResourcesAssigned();
+			resourceFromParamProject.goToFrontOfList();
+			
+			while(!done)
+			{
+				Resource r = resourceFromParamProject.getNextResource();
+				
+				if(r != null)
+				{
+					if(!roles.contains(r.getRole()))
+					{
+						roles.add(r.getRole());
+					}
+				}
+				else
+				{
+					done = true;
+				}
+			}
+		}
+		
+		if(roles.isEmpty())
+		{
+			System.out.println("The project : " + paramProject.getProjectName() + "do not have ressources assigned!");
+		}
+		else
+		{
+			System.out.println("\nRoles assigned to: " + " "
+					+ paramProject.getID() + " " + paramProject.getProjectName() + " :");
+			lineCheck(1);
 
+			System.out
+					.println("===========================================================");
+			lineCheck(1);
+
+			for(String elem: roles)
+			{
+				System.out.println(elem);
+			}
+			
+			System.out
+			.println("===========================================================");
+			lineCheck(1);
+		}
 	}
 
 	/**
@@ -132,39 +242,39 @@ public class Displays {
 	 * 
 	 * @param resource
 	 */
-	public void displayProjectsAssignedToResource(Resource resource) {
-
+	public void displayProjectsAssignedToResource(Resource resource) 
+	{
 		boolean done;
 		Project project;
 
 		System.out.println("\nProjects assigned (in this session) to : "
 				+ resource.getFirstName() + " " + resource.getLastName() + " "
 				+ resource.getID());
+		
 		lineCheck(2);
+		
 		System.out
 				.println("========================================================= ");
+		
 		lineCheck(1);
 
 		resource.getProjectsAssigned().goToFrontOfList();
 		done = false;
 
-		while (!done) {
-
+		while (!done) 
+		{
 			project = resource.getProjectsAssigned().getNextProject();
 
-			if (project == null) {
-
+			if (project == null) 
+			{
 				done = true;
-
-			} else {
-
+			} 
+			else 
+			{
 				displayProject(project);
 				lineCheck(2);
-
 			} // if
-
 		} // while
-
 	}
 
 	/**
@@ -173,8 +283,8 @@ public class Displays {
 	 * 
 	 * @param list
 	 */
-	public void displayResourceList(ResourceList list) {
-
+	public void displayResourceList(ResourceList list) 
+	{
 		boolean done;
 		Resource resource;
 
@@ -185,23 +295,21 @@ public class Displays {
 
 		done = false;
 
-		while (!done) {
-
+		while (!done) 
+		{
 			resource = list.getNextResource();
 
-			if (resource == null) {
-
+			if (resource == null) 
+			{
 				done = true;
-
-			} else {
-
+			} 
+			else 
+			{
 				displayResource(resource);
 				lineCheck(1);
 
 			} // if
-
 		} // while
-
 	}
 
 	/**
@@ -210,8 +318,8 @@ public class Displays {
 	 * 
 	 * @param list
 	 */
-	public void displayProjectList(ProjectList list) {
-
+	public void displayProjectList(ProjectList list) 
+	{
 		boolean done;
 		Project project;
 
@@ -221,23 +329,19 @@ public class Displays {
 		list.goToFrontOfList();
 		done = false;
 
-		while (!done) {
-
+		while (!done) 
+		{
 			project = list.getNextProject();
 
-			if (project == null) {
-
+			if (project == null) 
+			{
 				done = true;
-
-			} else {
-
+			} 
+			else 
+			{
 				displayProject(project);
 				lineCheck(1);
-
 			} // if
-
 		} // while
-
 	}
-
 } // Display

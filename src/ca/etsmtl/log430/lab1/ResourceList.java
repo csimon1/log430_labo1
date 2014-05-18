@@ -1,18 +1,19 @@
 package ca.etsmtl.log430.lab1;
 
-
 /**
  * This class is used by various other classes that need to keep a list of
  * resources on hand. It extends the List class which provides the basic
  * functionality for storage and retrieval of the Resource Object from the list.
  * 
  * @author A.J. Lattanze, CMU
- * @version 1.6, 2013-Sep-13
+ * @version 1.7, 2014-May-07
  */
 
 /*
  * Modification Log
  * ***************************************************************************
+ * v1.7, S. Abraham  , 2014-May-07 - Formated source code for easier reading.
+ * 
  * v1.6, R. Champagne, 2013-Sep-13 - Various refactorings for new lab.
  * 
  * v1.5, R. Champagne, 2012-Jun-19 - Various refactorings for new lab.
@@ -62,8 +63,8 @@ public class ResourceList extends List<Resource> {
 	 * @param resource
 	 * @return true if the resource is in the list, false otherwise.
 	 */
-	public boolean findResource(Resource resource) {
-
+	public boolean findResource(Resource resource) 
+	{
 		Resource currentObject;
 		boolean done = false;
 		boolean result = false;
@@ -73,29 +74,26 @@ public class ResourceList extends List<Resource> {
 
 		goToFrontOfList();
 
-		while (!done) {
-
+		while (!done) 
+		{
 			currentObject = getNextResource();
 
-			if (currentObject == null) {
-
+			if (currentObject == null) 
+			{
 				done = true;
 
-			} else {
-
-				if (resource.getID().compareTo(
-						currentObject.getID()) == 0) {
-
+			} 
+			else 
+			{
+				if (resource.getID().compareTo(currentObject.getID()) == 0) 
+				{
 					result = true;
 
 				} // if
-
 			} // if
-
 		} // while
 
 		return (result);
-
 	} // findResource
 
 	/**
@@ -106,48 +104,45 @@ public class ResourceList extends List<Resource> {
 	 *         passed to the method, the Resource object is returned to the
 	 *         caller. Otherwise, returns null.
 	 */
-	public Resource findResourceByID(String resourceID) {
-
+	public Resource findResourceByID(String resourceID) 
+	{
 		Resource currentObject = null;
 		boolean done = false;
 		boolean found = false;
 
 		// Note that this method assumes that all instances have different
 		// identification numbers.
-
 		goToFrontOfList();
 
-		while (!done) {
-
+		while (!done) 
+		{
 			currentObject = getNextResource();
 
-			if (currentObject == null) {
-
+			if (currentObject == null) 
+			{
 				done = true;
 
-			} else {
-
-				if (currentObject.getID().compareTo(resourceID) == 0) {
-
+			}
+			else 
+			{
+				if (currentObject.getID().compareTo(resourceID) == 0) 
+				{
 					found = true;
 					done = true;
-
 				} // if
 
 			} // if
 
 		} // while
 
-		if (found) {
-
+		if (found) 
+		{
 			return (currentObject);
-
-		} else {
-
+		} 
+		else 
+		{
 			return (null);
-
 		} // if
-
 	} // findResourceByID
 
 } // ResourceList
