@@ -43,9 +43,7 @@ public class List<E> extends ArrayList<E> implements java.util.List<E> {
 	public List() {
 		super();
 	
-
 	} // Constructor
-
 	
 	public List(Collection<? extends E> c) {
 		super(c);
@@ -58,57 +56,4 @@ public class List<E> extends ArrayList<E> implements java.util.List<E> {
 
 	} // Constructor
 	
-	/**
-	 * Uses the Vector.add method to append the Object to the end of the list.
-	 * Casting from Object to specific class is handled in the classes that
-	 * extend this class.
-	 * 
-	 * @param item
-	 */
-	public void appendItemToList(E item) {
-
-		super.add(item);
-	} // Append Item
-
-	/**
-	 * Gets the Object from the list that is currently being pointed to by
-	 * vectorIndex. Casting from Object to specific class is handled in the
-	 * classes that extend this class.
-	 * 
-	 * @return The Object from the list that is currently being pointed to by
-	 * vectorIndex
-	 */
-	public E getItemFromList() {
-
-		E item;
-
-		// Each time we get an item we increment the vectorIndex
-		// If we go out of the Vector bounds, then we will catch
-		// in the the catch clause below and return a null object
-
-		try {
-
-			item = super.get(index);
-			index++;
-			return (item);
-
-		} // try
-
-		catch (ArrayIndexOutOfBoundsException error) {
-
-			return ((E) null);
-
-		} // if
-
-	} // Append Item
-
-	/**
-	 * Sets vectorIndex back to zero, thereby pointing at the front of the list.
-	 */
-	void goToFrontOfList() {
-
-		index = 0;
-
-	} // goToFrontOfList
-
 } // List Class
