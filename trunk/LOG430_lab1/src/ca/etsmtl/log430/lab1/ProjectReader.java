@@ -3,7 +3,7 @@ package ca.etsmtl.log430.lab1;
 
 /**
  * This class will read from the InputFile and instantiate the Project objects
- * in the system. It is assumed that the InputFile is in the local directory,
+ * in the system. It is assumed that the InputFile is in the local directory, and
  * contains the various projects and each line of input is read and expected
  * in the following format.
  * <pre>
@@ -18,11 +18,13 @@ package ca.etsmtl.log430.lab1;
  * The projects.txt file has been provided as an example file.
  *
  * @author A.J. Lattanze, CMU
- * @version 1.6, 2013-Sep-13
+ * @version 1.7, 2014-May-07
  */
 
 /* Modification Log
  *****************************************************************************
+ * v1.7, S. Abraham  , 2014-May-07 - Added comments.
+ *
  * v1.6, R. Champagne, 2013-Sep-13 - Various refactorings for new lab.
  * 
  * v1.5, R. Champagne, 2012-Jun-19 - Various refactorings for new lab.
@@ -38,18 +40,27 @@ package ca.etsmtl.log430.lab1;
  * v1.0, 12/29/99, A.J. Lattanze - Original version.
  *****************************************************************************/
 
-public class ProjectReader extends LineOfTextFileReader {
-
+public class ProjectReader extends LineOfTextFileReader 
+{
 	/**
 	 * List of projects.
 	 */
     private ProjectList projectList = new ProjectList();
 
-    public ProjectReader() {
+    /**
+     * Default Constructor.
+     */
+    public ProjectReader() 
+    {
         setListOfProjects(null);
     }
 
-    public ProjectReader(String inputFile) {
+    /**
+     * ProjectReader Constructor. 
+     * @param inputFile the file path.
+     */
+    public ProjectReader(String inputFile) 
+    {
         setListOfProjects(getProjectList(inputFile));
     }
 
@@ -63,44 +74,43 @@ public class ProjectReader extends LineOfTextFileReader {
 	 * @param inputFile
 	 * @return The ProjectList properly populated
 	 */
-    public ProjectList getProjectList(String inputFile) {
-
+    public ProjectList getProjectList(String inputFile) 
+    {
         String text;
         boolean done;
         ProjectList list = new ProjectList();
 
-        if (openFile(inputFile)) {
-
+        if (openFile(inputFile)) 
+        {
             done = false;
 
-            while (!done) {
-
-                try {
-
+            while (!done) 
+            {
+                try 
+                {
                     text = readLineOfText();
 
-                    if (text == null) {
-
+                    if (text == null) 
+                    {
                         done = true;
-
-                    } else {
-
+                    } 
+                    else 
+                    {
                         list.addProject(parseText(text));
-
                     } // if 
 
                 } // try
 
-                catch (Exception Error) {
-
+                catch (Exception Error) 
+                {
                     return (null);
 
                 } // catch
 
             } // while		
-
-        } else {
-
+        } 
+        else 
+        {
             return (null);
 
         } // if
@@ -115,11 +125,11 @@ public class ProjectReader extends LineOfTextFileReader {
 	 * Parse lines of text that are read from the text file containing project
 	 * information in the above format. Note that this is a private method.
 	 * 
-	 * @param lineOfText
+	 * @param lineOfText the text to parse.
 	 * @return A properly populated Project instance.
 	 */
-    private Project parseText(String lineOfText) {
-
+    private Project parseText(String lineOfText) 
+    {
         boolean done; // Loop terminator
         String token; // String token parsed from LineOfText
         int tokenCount; // Number of tokens parsed
@@ -133,22 +143,21 @@ public class ProjectReader extends LineOfTextFileReader {
         backIndex = 0;
         done = false;
 
-        while (!done) {
-
+        while (!done) 
+        {
             backIndex = lineOfText.indexOf(' ', frontIndex);
 
-            if (tokenCount < 4) {
-
+            if (tokenCount < 4) 
+            {
                 token = lineOfText.substring(frontIndex, backIndex);
-
-            } else {
-
+            } 
+            else 
+            {
                 token = lineOfText.substring(frontIndex);
-
             } // if 
 
-            switch (tokenCount) {
-
+            switch (tokenCount) 
+            {
                 case 0 : // Project ID 
                     newProject.setID(token);
                     frontIndex = backIndex + 1;
@@ -177,20 +186,29 @@ public class ProjectReader extends LineOfTextFileReader {
                     newProject.setPriority(token);
                     done = true;
                     break;
-
+                    
             } // end switch
-
+            
         } // end while
 
         return (newProject);
-
     } // ParseText
 
-	public void setListOfProjects(ProjectList projectList) {
+    /**
+     * This function modifies the project list object to read.
+     * @param projectList the project list object to read.
+     */
+	public void setListOfProjects(ProjectList projectList) 
+	{
 		this.projectList = projectList;
 	}
-
-	public ProjectList getListOfProjects() {
+	
+	/**
+	 * This function returns a project list object.
+	 * @return the project list object.
+	 */
+	public ProjectList getListOfProjects() 
+	{
 		return projectList;
 	}
 
