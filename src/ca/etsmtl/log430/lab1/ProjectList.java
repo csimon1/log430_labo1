@@ -29,7 +29,7 @@ package ca.etsmtl.log430.lab1;
  * ***************************************************************************
  */
 
-public class ProjectList extends List {
+public class ProjectList extends List<Project> {
 
 	public ProjectList() {
 		super();
@@ -41,7 +41,7 @@ public class ProjectList extends List {
 	 *            are taken care of within this class.
 	 */
 	public void addProject(Project project) {
-		appendItemToList((Object) project);
+		appendItemToList(project);
 	}
 
 	/**
