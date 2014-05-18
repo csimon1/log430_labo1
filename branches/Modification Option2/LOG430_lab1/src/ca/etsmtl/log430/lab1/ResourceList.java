@@ -1,18 +1,19 @@
 package ca.etsmtl.log430.lab1;
 
-
 /**
  * This class is used by various other classes that need to keep a list of
  * resources on hand. It extends the List class which provides the basic
  * functionality for storage and retrieval of the Resource Object from the list.
  * 
  * @author A.J. Lattanze, CMU
- * @version 1.6, 2013-Sep-13
+ * @version 1.7, 2014-May-07
  */
 
 /*
  * Modification Log
  * ***************************************************************************
+ * v1.7, S. Abraham  , 2014-May-07 - Formated source code for easier reading.
+ * 
  * v1.6, R. Champagne, 2013-Sep-13 - Various refactorings for new lab.
  * 
  * v1.5, R. Champagne, 2012-Jun-19 - Various refactorings for new lab.
@@ -29,7 +30,12 @@ package ca.etsmtl.log430.lab1;
  * **************************************************************************
  */
 
-public class ResourceList extends List {
+public class ResourceList extends List<Resource> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7923181622317924870L;
 
 	/**
 	 * Adds a new resource to the list. All the issues of casting are taken care
@@ -38,18 +44,9 @@ public class ResourceList extends List {
 	 * @param resource
 	 */
 	public void addResource(Resource resource) {
-		appendItemToList((Object) resource);
+		add(resource);
 	}
 
-	/**
-	 * @return The resource at the current position pointed to by the
-	 *         internal list pointer. Subsequent calls will return the next
-	 *         resource object in the list. A null object is returned if list is
-	 *         empty or the end of list has been reached.
-	 */
-	public Resource getNextResource() {
-		return (Resource) getItemFromList();
-	}
 
 	/**
 	 * Determines whether the Resource object is currently in the list.
@@ -57,40 +54,17 @@ public class ResourceList extends List {
 	 * @param resource
 	 * @return true if the resource is in the list, false otherwise.
 	 */
-	public boolean findResource(Resource resource) {
 
-		Resource currentObject;
-		boolean done = false;
-		boolean result = false;
-
-		// Note that this method assumes that all instances have different
-		// identification numbers.
-
-		goToFrontOfList();
-
-		while (!done) {
-
-			currentObject = getNextResource();
-
-			if (currentObject == null) {
-
-				done = true;
-
-			} else {
-
-				if (resource.getID().compareTo(
-						currentObject.getID()) == 0) {
-
-					result = true;
-
-				} // if
-
+	public boolean findResource(Resource resource) 
+	{
+		for (Resource r : this) {
+			if (resource.getID().compareToIgnoreCase(r.getID()) == 0) 
+			{
+				return true;
 			} // if
-
-		} // while
-
-		return (result);
-
+		}
+		
+		return false;
 	} // findResource
 
 	/**
@@ -101,48 +75,20 @@ public class ResourceList extends List {
 	 *         passed to the method, the Resource object is returned to the
 	 *         caller. Otherwise, returns null.
 	 */
-	public Resource findResourceByID(String resourceID) {
 
-		Resource currentObject = null;
-		boolean done = false;
-		boolean found = false;
-
-		// Note that this method assumes that all instances have different
-		// identification numbers.
-
-		goToFrontOfList();
-
-		while (!done) {
-
-			currentObject = getNextResource();
-
-			if (currentObject == null) {
-
-				done = true;
-
-			} else {
-
-				if (currentObject.getID().compareTo(resourceID) == 0) {
-
-					found = true;
-					done = true;
-
-				} // if
+	public Resource findResourceByID(String resourceID) 
+	{
+		for (Resource r : this) {
+			if (r.getID().compareTo(resourceID) == 0) 
+			{
+				return r;
 
 			} // if
 
-		} // while
-
-		if (found) {
-
-			return (currentObject);
-
-		} else {
-
-			return (null);
-
-		} // if
-
+		}
+		
+		return null;
+				
 	} // findResourceByID
 
 } // ResourceList
