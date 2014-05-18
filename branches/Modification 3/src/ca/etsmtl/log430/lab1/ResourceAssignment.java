@@ -1,5 +1,7 @@
 package ca.etsmtl.log430.lab1;
 
+import java.util.ArrayList;
+
 
 /**
  * Main class for assignment 1 for LOG430, Architecture logicielle.
@@ -34,12 +36,14 @@ package ca.etsmtl.log430.lab1;
  * </pre>
  * 
  * @author A.J. Lattanze, CMU
- * @version 1.5, 2013-Sep-13
+ * @version 1.6, 2014-May-07
  */
 
 /*
  * Modification Log
  * **************************************************************************
+ * v1.6, S. Abraham  , 2014-May-07 - Formated source code for easy reading.
+ * 
  * v1.5, R. Champagne, 2013-Sep-13 - Various refactorings for new lab.
  * 
  * v1.4, R. Champagne, 2012-May-31 - Various refactorings for new lab.
@@ -54,24 +58,31 @@ package ca.etsmtl.log430.lab1;
  * **************************************************************************
  */
 
-public class ResourceAssignment {
+public class ResourceAssignment 
+{
 
-	public static void main(String argv[]) {
-
-		if (argv.length != 2) {
+	/**
+	 * Main method
+	 * @param argv arguments to add a the run configuration.
+	 */
+	public static void main(String argv[]) 
+	{
+		if (argv.length != 2) 
+		{
 			System.out.println("\n\nIncorrect number of input parameters -"
 					+ " correct usage:");
 			System.out.println("\njava ResourceAssignment <project file name>"
-					+ " <resource file name>");
-		} else {
-
+					+ " <resource file name> <job file name>");
+		}
+		else 
+		{
 			// Declarations:
 
 			boolean done; // Loop invariant
 			char userChoice; // User's menu choice
 			Project project = null; // A project object
 			Resource resource = null; // A resource object
-
+			
 			// Instantiates a menu object
 			Menus menu = new Menus();
 
@@ -87,25 +98,29 @@ public class ResourceAssignment {
 			 * the second argument (argv[1]). An example resources file and projects
 			 * file is provided as resources.txt and projects.txt
 			 */
-
 			ProjectReader projectList = new ProjectReader(argv[0]);
 			ResourceReader resourceList = new ResourceReader(argv[1]);
-
+			
 			if ((projectList.getListOfProjects() == null)
-					|| (resourceList.getListOfResources() == null)) {
+					|| (resourceList.getListOfResources() == null)) 
+			{
+
 				System.out
 						.println("\n\n *** The projects list and/or the resources"
-								+ " list was not initialized ***");
+								+ " and/or the jobs " + " list was not initialized ***");
 				done = true;
-			} else {
+			} 
+			else 
+			{
 				done = false;
 			} // if
 
-			while (!done) {
-
+			while (!done) 
+			{
 				userChoice = menu.mainMenu();
-				switch (userChoice) {
 
+				switch (userChoice) 
+				{
 				case '1':
 
 					display.displayResourceList(resourceList.getListOfResources());
@@ -143,18 +158,34 @@ public class ResourceAssignment {
 					if (resource != null) {
 						display.displayProjectList(projectList.getListOfProjects());
 						project = menu.pickProject(projectList.getListOfProjects());
-						if (project != null) {
-							project.assignResource(resource);
-							resource.assignProject(project);
+	
+						if (project != null) 
+						{
+							display.displayResourcesAssignedToProject(project);
 						} // if
-					} // if
-
+					}
 					break;
-
+				
+				case '7':
+					
+					// display all existing projects...
+					display.displayProjectList(projectList.getListOfProjects());
+					// prompt the user to select a project
+					project = menu.pickProject(projectList.getListOfProjects());
+					
+					if(project != null)
+					{
+						// display all resources assigned to the project.
+						display.displayRoles(project, resourceList.getListOfResources());
+						//project.displayRoles(resourceList.getListOfResources());
+					}
+					break;
+					
 				case 'X':
 
 				case 'x':
 					done = true;
+
 				} // switch
 			} // while
 		} // if
