@@ -1,14 +1,12 @@
 package ca.etsmtl.log430.lab1;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Vector;
 
 /**
  * This is the base class that is used to construct the various list objects
- * used in this application. The storage mechanism used is the Java Vector
- * found in the java.util package.
- * 
- * A vector object is declared and several generic operations are defined for
- * the List class.
+ * used in this application.
  * 
  * @author A.J. Lattanze, CMU
  * @version 1.4, 2013-Sep-13
@@ -16,6 +14,8 @@ import java.util.Vector;
 
 /* Modification Log
  **************************************************************************************
+ * v1.5, 18-May-2014 Charly Simon change to extends ArrayList and implements List<T>
+ *
  * v1.4, R. Champagne, 2013-Sep-13 - Various refactorings to make classe
  *       independant of future changes..
  * 
@@ -28,26 +28,32 @@ import java.util.Vector;
  * v1.0, 12/29/99, A.J. Lattanze - Original version.
  **************************************************************************************/
 
-public class List {
+public class List<E> extends ArrayList<E> implements java.util.List<E> {
 
-	/**
-	 * The list of items. Allocates 25 elements initially and will extend the
-	 * vector by elements of 5.
-	 */
-	private Vector<Object> itemList;
-	
 	/**
 	 * Used to index elements in the list.
 	 */
 	int vectorIndex; 
 
 	public List() {
-
-		itemList = new Vector<Object>(25, 5);
-		vectorIndex = 0;
+		super();
+	
 
 	} // Constructor
 
+	
+	public List(Collection<? extends E> c) {
+		super(c);
+	
+
+	} // Constructor
+	
+	public List(int initialCapacity) {
+		super(initialCapacity);
+	
+
+	} // Constructor
+	
 	/**
 	 * Uses the Vector.add method to append the Object to the end of the list.
 	 * Casting from Object to specific class is handled in the classes that
@@ -55,9 +61,9 @@ public class List {
 	 * 
 	 * @param item
 	 */
-	public void appendItemToList(Object item) {
+	public void appendItemToList(E item) {
 
-		itemList.add(item);
+		super.add(item);
 
 	} // Append Item
 
@@ -69,9 +75,9 @@ public class List {
 	 * @return The Object from the list that is currently being pointed to by
 	 * vectorIndex
 	 */
-	public Object getItemFromList() {
+	public E getItemFromList() {
 
-		Object item;
+		E item;
 
 		// Each time we get an item we increment the vectorIndex
 		// If we go out of the Vector bounds, then we will catch
@@ -79,7 +85,7 @@ public class List {
 
 		try {
 
-			item = itemList.get(vectorIndex);
+			item = super.get(vectorIndex);
 			vectorIndex++;
 			return (item);
 
@@ -87,7 +93,7 @@ public class List {
 
 		catch (ArrayIndexOutOfBoundsException error) {
 
-			return ((Object) null);
+			return ((E) null);
 
 		} // if
 
