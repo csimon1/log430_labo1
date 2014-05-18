@@ -100,8 +100,6 @@ public class Displays
 	 */
 	public void displayResourcesAssignedToProject(Project project) 
 	{
-		boolean done;
-		Resource resource;
 
 		System.out.println("\nResources assigned to: " + " "
 				+ project.getID() + " " + project.getProjectName() + " :");
@@ -111,56 +109,28 @@ public class Displays
 				.println("===========================================================");
 		lineCheck(1);
 
-		project.getResourcesAssigned().goToFrontOfList();
-		done = false;
+		for (Resource resource : project.getResourcesAssigned()) {
+			displayResource(resource);
+		}
 
-		while (!done) 
-		{
-			resource = project.getResourcesAssigned().getNextResource();
-
-			if (resource == null) 
-			{
-				done = true;
-
-			}
-			else 
-			{
-				displayResource(resource);
-
-			} // if
-
-		} // while
 	}
 	
 	public void displayRoles(Project paramProject, ResourceList existingResources)
 	{
-		ArrayList<String> roles = new ArrayList();
+		ArrayList<String> roles = new ArrayList<>();
 		// we going to check if the previous resources contains the actual project in the file
 		if(existingResources.size() > 0)
 		{
-			// ask previous resources
-			// replacing the cursor of the list
-			existingResources.goToFrontOfList();
-			boolean doneIteratingResources = false;
 			
-			while(!doneIteratingResources)
-			{
-				// check if the current resource have a project that is associated with the current project.
-				Resource r = existingResources.getNextResource();
-				
-				if(r != null)
-				{
+			for (Resource r : existingResources) {
+	
 					// check first if the current resource have old projects that are associated with this one.
 					if(r.getPreviouslyAssignedProjectList().size() > 0)
 					{
-						ProjectList previousResourceList = r.getPreviouslyAssignedProjectList();
-						boolean doneIteratingProjects = false;
 						
-						previousResourceList.goToFrontOfList();
+						for (Project p : r.getPreviouslyAssignedProjectList()) {
+							
 						
-						while(!doneIteratingProjects)
-						{
-							Project p = previousResourceList.getNextProject();
 							// if the project actually exist
 							if(p != null)
 							{
@@ -172,32 +142,19 @@ public class Displays
 									roles.add(r.getRole());
 								}
 							}
-							else
-							{
-								doneIteratingProjects = true;
-							}
+							
 						}
 					}
-				}
-				else
-				{
-					doneIteratingResources = true;
-				}
-				// if it not the case then do nothing and proceed to the next resource
+
 			}
 		}
 		
 		// ask current resources
 		if(paramProject.getResourcesAssigned().size() > 0)
 		{
-			boolean done = false;
-			ResourceList resourceFromParamProject = paramProject.getResourcesAssigned();
-			resourceFromParamProject.goToFrontOfList();
-			
-			while(!done)
-			{
-				Resource r = resourceFromParamProject.getNextResource();
+			for (Resource r : paramProject.getResourcesAssigned()) {
 				
+								
 				if(r != null)
 				{
 					if(!roles.contains(r.getRole()))
@@ -205,10 +162,7 @@ public class Displays
 						roles.add(r.getRole());
 					}
 				}
-				else
-				{
-					done = true;
-				}
+
 			}
 		}
 		
@@ -244,8 +198,6 @@ public class Displays
 	 */
 	public void displayProjectsAssignedToResource(Resource resource) 
 	{
-		boolean done;
-		Project project;
 
 		System.out.println("\nProjects assigned (in this session) to : "
 				+ resource.getFirstName() + " " + resource.getLastName() + " "
@@ -258,23 +210,11 @@ public class Displays
 		
 		lineCheck(1);
 
-		resource.getProjectsAssigned().goToFrontOfList();
-		done = false;
-
-		while (!done) 
-		{
-			project = resource.getProjectsAssigned().getNextProject();
-
-			if (project == null) 
-			{
-				done = true;
-			} 
-			else 
-			{
+		for (Project project : resource.getProjectsAssigned()) {
+			
 				displayProject(project);
 				lineCheck(2);
-			} // if
-		} // while
+		}
 	}
 
 	/**
@@ -285,31 +225,13 @@ public class Displays
 	 */
 	public void displayResourceList(ResourceList list) 
 	{
-		boolean done;
-		Resource resource;
-
 		System.out.print("\n");
 		lineCheck(1);
 
-		list.goToFrontOfList();
-
-		done = false;
-
-		while (!done) 
-		{
-			resource = list.getNextResource();
-
-			if (resource == null) 
-			{
-				done = true;
-			} 
-			else 
-			{
-				displayResource(resource);
-				lineCheck(1);
-
-			} // if
-		} // while
+		for (Resource resource : list) {
+			displayResource(resource);
+			lineCheck(1);
+		}
 	}
 
 	/**
@@ -320,28 +242,14 @@ public class Displays
 	 */
 	public void displayProjectList(ProjectList list) 
 	{
-		boolean done;
-		Project project;
 
 		System.out.print("\n");
 		lineCheck(1);
 
-		list.goToFrontOfList();
-		done = false;
-
-		while (!done) 
-		{
-			project = list.getNextProject();
-
-			if (project == null) 
-			{
-				done = true;
-			} 
-			else 
-			{
-				displayProject(project);
-				lineCheck(1);
-			} // if
-		} // while
+		for (Project project : list) {
+			displayProject(project);
+			lineCheck(1);
+		}
 	}
+	
 } // Display
