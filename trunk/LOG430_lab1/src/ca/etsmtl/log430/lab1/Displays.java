@@ -136,7 +136,7 @@ public class Displays
 	{
 		ArrayList<String> roles = new ArrayList();
 		// we going to check if the previous resources contains the actual project in the file
-		if(existingResources.itemCount() > 0)
+		if(existingResources.size() > 0)
 		{
 			// ask previous resources
 			// replacing the cursor of the list
@@ -151,7 +151,7 @@ public class Displays
 				if(r != null)
 				{
 					// check first if the current resource have old projects that are associated with this one.
-					if(r.getPreviouslyAssignedProjectList().itemCount() > 0)
+					if(r.getPreviouslyAssignedProjectList().size() > 0)
 					{
 						ProjectList previousResourceList = r.getPreviouslyAssignedProjectList();
 						boolean doneIteratingProjects = false;
@@ -188,7 +188,7 @@ public class Displays
 		}
 		
 		// ask current resources
-		if(paramProject.getResourcesAssigned().itemCount() > 0)
+		if(paramProject.getResourcesAssigned().size() > 0)
 		{
 			boolean done = false;
 			ResourceList resourceFromParamProject = paramProject.getResourcesAssigned();

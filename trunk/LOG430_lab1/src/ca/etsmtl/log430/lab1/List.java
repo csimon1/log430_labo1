@@ -2,7 +2,6 @@ package ca.etsmtl.log430.lab1;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Vector;
 
 /**
  * This is the base class that is used to construct the various list objects
@@ -33,9 +32,13 @@ import java.util.Vector;
 public class List<E> extends ArrayList<E> implements java.util.List<E> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8996553246710229736L;
+	/**
 	 * Used to index elements in the list.
 	 */
-	int vectorIndex; 
+	int index; 
 
 	public List() {
 		super();
@@ -85,8 +88,8 @@ public class List<E> extends ArrayList<E> implements java.util.List<E> {
 
 		try {
 
-			item = super.get(vectorIndex);
-			vectorIndex++;
+			item = super.get(index);
+			index++;
 			return (item);
 
 		} // try
@@ -104,17 +107,8 @@ public class List<E> extends ArrayList<E> implements java.util.List<E> {
 	 */
 	void goToFrontOfList() {
 
-		vectorIndex = 0;
+		index = 0;
 
 	} // goToFrontOfList
-	
-	/**
-	 * Obtains the number of elements in the list.
-	 * @return the number of element in the list
-	 */
-	int itemCount()
-	{
-		return super.size();
-	}
 
 } // List Class

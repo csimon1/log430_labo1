@@ -30,17 +30,21 @@ package ca.etsmtl.log430.lab1;
  * **************************************************************************
  */
 
-public class ResourceList extends List 
-{
+public class ResourceList extends List<Resource> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7923181622317924870L;
+
 	/**
 	 * Adds a new resource to the list. All the issues of casting are taken care
 	 * of within this class.
 	 * 
 	 * @param resource
 	 */
-	public void addResource(Resource resource) 
-	{
-		appendItemToList((Object) resource);
+	public void addResource(Resource resource) {
+		add(resource);
 	}
 
 	/**
@@ -49,9 +53,8 @@ public class ResourceList extends List
 	 *         resource object in the list. A null object is returned if list is
 	 *         empty or the end of list has been reached.
 	 */
-	public Resource getNextResource() 
-	{
-		return (Resource) getItemFromList();
+	public Resource getNextResource() {
+		return getItemFromList();
 	}
 
 	/**
