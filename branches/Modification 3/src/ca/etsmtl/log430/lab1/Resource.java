@@ -1,5 +1,8 @@
 package ca.etsmtl.log430.lab1;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 /**
  * This class defines the Resource object for the system. Besides the basic
@@ -122,16 +125,48 @@ public class Resource {
 		return projectsAssignedList;
 	}
 
-	public void getWorkChargePreviouslyAssignedProject() {
+	/**
+	 * 
+	 * @return the work charge previously assign for this resource (in percentage)
+	 */
+	public int getWorkChargePreviouslyAssigned() {
+		int chargeWorkPreviouslyAssigned = 0;
+		ProjectList projectList = this.getPreviouslyAssignedProjectList();
 		
+		if( projectList != null){
+			for (Project project : projectList) {
+				chargeWorkPreviouslyAssigned += project.getPriority().getRessourceCharge();
+			}
+		}
+		
+		return chargeWorkPreviouslyAssigned;
+	}
+
+	/**
+	 * 
+	 * @return the work charge currently assign for this resource (in percentage)
+	 */
+	public int getWorkChargeCurrentlyAssigned() {
+		
+		int chargeWorkCurrentlyAssigned = 0;
+		ProjectList projectList = this.getPreviouslyAssignedProjectList();
+		
+		if( projectList != null){
+			for (Project project : projectList) {
+				chargeWorkCurrentlyAssigned += project.getPriority().getRessourceCharge();
+			}
+		}
+		
+		return chargeWorkCurrentlyAssigned;
 	}
 	
-	public void getWorkChargeCurrentlylyAssignedProject() {
-		
+	/**
+	 * 
+	 * @return total work charge for this resource (in percentage)
+	 */
+	public int getWorkCharge() {
+		return getWorkChargePreviouslyAssigned() + getWorkChargeCurrentlyAssigned();
 	}
 	
-	public void getWorkCharge() {
-		
-	}
 	
 } // Resource class
