@@ -30,13 +30,16 @@ package ca.etsmtl.log430.lab1;
  * v1.0, 12/29/99, A.J. Lattanze - Original version.
  * ***************************************************************************
  */
-public class ProjectList extends List 
-{
+
+public class ProjectList extends List<Project> {
+
+	
+	private static final long serialVersionUID = -3023403675352237422L;
+	
 	/**
 	 * Default Constructor and call the parent class's constructor.
 	 */
-	public ProjectList() 
-	{
+	public ProjectList() {
 		super();
 	}
 
@@ -45,9 +48,8 @@ public class ProjectList extends List
 	 *            New project to be added to the list. All the issues of casting
 	 *            are taken care of within this class.
 	 */
-	public void addProject(Project project) 
-	{
-		appendItemToList((Object) project);	// parent method call super.appendItemToList... 
+	public void addProject(Project project) {
+		add(project);
 	}
 
 	/**
@@ -56,9 +58,8 @@ public class ProjectList extends List
 	 *         return the next Project object in the list. A null object is
 	 *         returned if list is empty or the end of list has been reached.
 	 */
-	public Project getNextProject() 
-	{
-		return (Project) getItemFromList();// parent method call super.getItemFromList...
+	public Project getNextProject() {
+		return getItemFromList();
 	}
 
 	/**
@@ -69,8 +70,8 @@ public class ProjectList extends List
 	 * @return A Project instance if found in the list based on specified
 	 *         criteria, null otherwise.
 	 */
-	public boolean findProject(Project project) 
-	{
+	public boolean findProject(Project project) {
+
 		Project currentObject;
 		boolean done = false;
 		boolean result = false;
@@ -107,8 +108,7 @@ public class ProjectList extends List
 	 * @param id the project ID
 	 * @return the Project object or null
 	 */
-	public Project findProjectByID(String id) 
-	{
+	public Project findProjectByID(String id){
 		Project currentObject;
 		Project returnValue = null;
 		boolean done = false;
