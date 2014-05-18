@@ -1,8 +1,5 @@
 package ca.etsmtl.log430.lab1;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 
 /**
  * This class defines the Resource object for the system. Besides the basic

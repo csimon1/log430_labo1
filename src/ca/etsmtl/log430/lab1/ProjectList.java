@@ -31,6 +31,11 @@ package ca.etsmtl.log430.lab1;
 
 public class ProjectList extends List<Project> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3023403675352237422L;
+
 	public ProjectList() {
 		super();
 	}
@@ -41,7 +46,7 @@ public class ProjectList extends List<Project> {
 	 *            are taken care of within this class.
 	 */
 	public void addProject(Project project) {
-		appendItemToList(project);
+		add(project);
 	}
 
 	/**
@@ -51,7 +56,7 @@ public class ProjectList extends List<Project> {
 	 *         returned if list is empty or the end of list has been reached.
 	 */
 	public Project getNextProject() {
-		return (Project) getItemFromList();
+		return getItemFromList();
 	}
 
 	/**

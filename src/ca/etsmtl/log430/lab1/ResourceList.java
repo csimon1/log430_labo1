@@ -32,13 +32,18 @@ package ca.etsmtl.log430.lab1;
 public class ResourceList extends List<Resource> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7923181622317924870L;
+
+	/**
 	 * Adds a new resource to the list. All the issues of casting are taken care
 	 * of within this class.
 	 * 
 	 * @param resource
 	 */
 	public void addResource(Resource resource) {
-		appendItemToList(resource);
+		add(resource);
 	}
 
 	/**
