@@ -47,16 +47,7 @@ public class ResourceList extends List<Resource> {
 		add(resource);
 	}
 
-	/**
-	 * @return The resource at the current position pointed to by the
-	 *         internal list pointer. Subsequent calls will return the next
-	 *         resource object in the list. A null object is returned if list is
-	 *         empty or the end of list has been reached.
-	 */
-	public Resource getNextResource() {
-		return getItemFromList();
-	}
-
+	
 	/**
 	 * Determines whether the Resource object is currently in the list.
 	 * 
@@ -65,35 +56,15 @@ public class ResourceList extends List<Resource> {
 	 */
 	public boolean findResource(Resource resource) 
 	{
-		Resource currentObject;
-		boolean done = false;
-		boolean result = false;
-
-		// Note that this method assumes that all instances have different
-		// identification numbers.
-
-		goToFrontOfList();
-
-		while (!done) 
-		{
-			currentObject = getNextResource();
-
-			if (currentObject == null) 
+		for (Resource r : this) {
+			if (resource.getID().compareToIgnoreCase(r.getID()) == 0) 
 			{
-				done = true;
+				return true;
 
-			} 
-			else 
-			{
-				if (resource.getID().compareTo(currentObject.getID()) == 0) 
-				{
-					result = true;
-
-				} // if
 			} // if
-		} // while
-
-		return (result);
+		}
+		
+		return false;
 	} // findResource
 
 	/**
@@ -106,43 +77,16 @@ public class ResourceList extends List<Resource> {
 	 */
 	public Resource findResourceByID(String resourceID) 
 	{
-		Resource currentObject = null;
-		boolean done = false;
-		boolean found = false;
-
-		// Note that this method assumes that all instances have different
-		// identification numbers.
-		goToFrontOfList();
-
-		while (!done) 
-		{
-			currentObject = getNextResource();
-
-			if (currentObject == null) 
+		for (Resource r : this) {
+			if (r.getID().compareTo(resourceID) == 0) 
 			{
-				done = true;
-
-			}
-			else 
-			{
-				if (currentObject.getID().compareTo(resourceID) == 0) 
-				{
-					found = true;
-					done = true;
-				} // if
+				return r;
 
 			} // if
-
-		} // while
-
-		if (found) 
-		{
-			return (currentObject);
-		} 
-		else 
-		{
-			return (null);
-		} // if
+		}
+		
+		return null;
+				
 	} // findResourceByID
 
 } // ResourceList
