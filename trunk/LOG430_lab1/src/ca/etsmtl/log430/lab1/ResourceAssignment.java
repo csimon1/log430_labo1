@@ -1,5 +1,7 @@
 package ca.etsmtl.log430.lab1;
 
+import java.util.ArrayList;
+
 
 /**
  * Main class for assignment 1 for LOG430, Architecture logicielle.
@@ -70,7 +72,7 @@ public class ResourceAssignment
 			System.out.println("\n\nIncorrect number of input parameters -"
 					+ " correct usage:");
 			System.out.println("\njava ResourceAssignment <project file name>"
-					+ " <resource file name>");
+					+ " <resource file name> <job file name>");
 		}
 		else 
 		{
@@ -80,7 +82,7 @@ public class ResourceAssignment
 			char userChoice; // User's menu choice
 			Project project = null; // A project object
 			Resource resource = null; // A resource object
-
+			
 			// Instantiates a menu object
 			Menus menu = new Menus();
 
@@ -98,13 +100,14 @@ public class ResourceAssignment
 			 */
 			ProjectReader projectList = new ProjectReader(argv[0]);
 			ResourceReader resourceList = new ResourceReader(argv[1]);
-
+			
 			if ((projectList.getListOfProjects() == null)
 					|| (resourceList.getListOfResources() == null)) 
 			{
+
 				System.out
 						.println("\n\n *** The projects list and/or the resources"
-								+ " list was not initialized ***");
+								+ " and/or the jobs " + " list was not initialized ***");
 				done = true;
 			} 
 			else 
@@ -115,32 +118,44 @@ public class ResourceAssignment
 			while (!done) 
 			{
 				userChoice = menu.mainMenu();
-				
+
 				switch (userChoice) 
 				{
-					case '1':
-	
-						display.displayResourceList(resourceList.getListOfResources());
-						break;
-	
-					case '2':
-	
-						display.displayProjectList(projectList.getListOfProjects());
-						break;
-	
-					case '3':
-	
-						display.displayResourceList(resourceList.getListOfResources());
-						resource = menu.pickResource(resourceList.getListOfResources());
-						
-						if (resource != null) 
-						{
-							display.displayProjectsAssignedToResource(resource);
-						} // if
-						break;
-	
-					case '4':
-	
+				case '1':
+
+					display.displayResourceList(resourceList.getListOfResources());
+					break;
+
+				case '2':
+
+					display.displayProjectList(projectList.getListOfProjects());
+					break;
+
+				case '3':
+
+					display.displayResourceList(resourceList.getListOfResources());
+					resource = menu.pickResource(resourceList.getListOfResources());
+					if (resource != null) {
+						display.displayProjectsAssignedToResource(resource);
+					} // if
+					break;
+
+				case '4':
+
+					display.displayProjectList(projectList.getListOfProjects());
+					project = menu.pickProject(projectList.getListOfProjects());
+
+					if (project != null) {
+						display.displayResourcesAssignedToProject(project);
+					} // if
+					break;
+
+				case '5':
+
+					display.displayResourceList(resourceList.getListOfResources());
+					resource = menu.pickResource(resourceList.getListOfResources());
+
+					if (resource != null) {
 						display.displayProjectList(projectList.getListOfProjects());
 						project = menu.pickProject(projectList.getListOfProjects());
 	
@@ -148,31 +163,29 @@ public class ResourceAssignment
 						{
 							display.displayResourcesAssignedToProject(project);
 						} // if
-						break;
-	
-					case '5':
-	
-						display.displayResourceList(resourceList.getListOfResources());
-						resource = menu.pickResource(resourceList.getListOfResources());
-	
-						if (resource != null) 
-						{
-							display.displayProjectList(projectList.getListOfProjects());
-							project = menu.pickProject(projectList.getListOfProjects());
-							
-							if (project != null) 
-							{
-								project.assignResource(resource);
-								resource.assignProject(project);
-							} // if
-						} // if
-	
-						break;
-	
-					case 'X':
-	
-					case 'x':
-						done = true;
+					}
+					break;
+				
+				case '7':
+					
+					// display all existing projects...
+					display.displayProjectList(projectList.getListOfProjects());
+					// prompt the user to select a project
+					project = menu.pickProject(projectList.getListOfProjects());
+					
+					if(project != null)
+					{
+						// display all resources assigned to the project.
+						display.displayRoles(project, resourceList.getListOfResources());
+						//project.displayRoles(resourceList.getListOfResources());
+					}
+					break;
+					
+				case 'X':
+
+				case 'x':
+					done = true;
+
 				} // switch
 			} // while
 		} // if

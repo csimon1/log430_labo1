@@ -130,6 +130,7 @@ public class Resource
 		return id;
 	}
 
+
 	/**
 	 * This function modifies the resource's role.
 	 * @param role the new role to modifies
@@ -138,6 +139,13 @@ public class Resource
 	{
 		this.role = role;
 	}
+	
+	//TODO set the role by using the job's Acronym variable once everything works perfectly.
+	/*
+	public void setRole(String jobAcronym)
+	{
+		this.role = jobAcronym;
+	}*/
 
 	/**
 	 * This function returns the resource's role.
@@ -152,8 +160,9 @@ public class Resource
 	 * This function modifies the previous project list.
 	 * @param projectList the previous project list to assign
 	 */
-	public void setPreviouslyAssignedProjectList(ProjectList projectList) 
-	{
+	//TODO This function is never called!
+	public void setPreviouslyAssignedProjectList(ProjectList projectList) {
+
 		this.alreadyAssignedProjectList = projectList;
 	}
 
@@ -161,8 +170,9 @@ public class Resource
 	 * This function return the previous project list.
 	 * @return the current project list.
 	 */
-	public ProjectList getPreviouslyAssignedProjectList() 
-	{
+
+	
+	public ProjectList getPreviouslyAssignedProjectList() {
 		return alreadyAssignedProjectList;
 	}
 	
@@ -170,8 +180,8 @@ public class Resource
 	 * This function modifies the current project list.
 	 * @param projectList the current project list
 	 */
-	public void setProjectsAssigned(ProjectList projectList) 
-	{
+	//TODO This function is never called!
+	public void setProjectsAssigned(ProjectList projectList) {
 		this.projectsAssignedList = projectList;
 	}
 

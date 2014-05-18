@@ -107,5 +107,14 @@ public class List<E> extends ArrayList<E> implements java.util.List<E> {
 		vectorIndex = 0;
 
 	} // goToFrontOfList
+	
+	/**
+	 * Obtains the number of elements in the list.
+	 * @return the number of element in the list
+	 */
+	int itemCount()
+	{
+		return super.size();
+	}
 
 } // List Class
