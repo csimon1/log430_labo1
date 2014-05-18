@@ -59,7 +59,7 @@ public class Priority {
 	/**
 	 * @return the ressource_occupation
 	 */
-	public int getRessource_occupation() {
+	public int getRessourceCharge() {
 		return ressource_occupation;
 	}
 	
