@@ -33,7 +33,7 @@ package ca.etsmtl.log430.lab1;
 
  ****************************************************************************/
 
-public class Resource 
+public class Resource implements Identiable
 {
 	/**
 	 * Resource's last name
@@ -53,7 +53,7 @@ public class Resource
 	/**
 	 * Resource role 
 	 */
-	private String role;
+	private Role role;
 
 	/**
 	 *  List of projects the resource is already allocated to
@@ -135,23 +135,16 @@ public class Resource
 	 * This function modifies the resource's role.
 	 * @param role the new role to modifies
 	 */
-	public void setRole(String role) 
+	public void setRole(Role role) 
 	{
 		this.role = role;
 	}
-	
-	//TODO set the role by using the job's Acronym variable once everything works perfectly.
-	/*
-	public void setRole(String jobAcronym)
-	{
-		this.role = jobAcronym;
-	}*/
 
 	/**
 	 * This function returns the resource's role.
 	 * @return the role
 	 */
-	public String getRole() 
+	public Role getRole() 
 	{
 		return role;
 	}
@@ -166,12 +159,12 @@ public class Resource
 		this.alreadyAssignedProjectList = projectList;
 	}
 
+
 	/**
 	 * This function return the previous project list.
 	 * @return the current project list.
 	 */
 
-	
 	public ProjectList getPreviouslyAssignedProjectList() {
 		return alreadyAssignedProjectList;
 	}

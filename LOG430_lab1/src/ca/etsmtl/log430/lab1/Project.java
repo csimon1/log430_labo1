@@ -32,7 +32,7 @@ import java.util.ArrayList;
 * v1.0, A.J. Lattanze, 12/29/99 - Original version.
 * ***************************************************************************
 */
-public class Project 
+public class Project implements Identiable
 {
 	/**
 	 * Project ID
@@ -72,7 +72,7 @@ public class Project
 	{
 		this(null);
 	}
-	
+
 	/**
 	 * This function is the Class Constructor.
 	 * @param id the project ID
@@ -80,6 +80,7 @@ public class Project
 	public Project(String id) 
 	{
 		resourcesAssigned = new ResourceList();
+
 		this.setID(id);
 	}
 
@@ -106,6 +107,7 @@ public class Project
 	 * This function return the project ID.
 	 * @return the project ID
 	 */
+	@Override
 	public String getID() 
 	{
 		return id;
@@ -200,4 +202,5 @@ public class Project
 	{
 		return resourcesAssigned;
 	}
+
 } // Project class

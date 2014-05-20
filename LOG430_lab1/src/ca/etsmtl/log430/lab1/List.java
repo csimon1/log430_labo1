@@ -52,8 +52,5 @@ public class List<E> extends ArrayList<E> implements java.util.List<E> {
 	
 	public List(int initialCapacity) {
 		super(initialCapacity);
-	
-
-	} // Constructor
-	
+	}	
 } // List Class
