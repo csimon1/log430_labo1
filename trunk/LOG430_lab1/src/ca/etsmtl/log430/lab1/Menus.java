@@ -49,6 +49,7 @@ public class Menus
 		char userChoice = ' ';
 		boolean valid = true;
 
+
 		while (valid) 
 		{
 
@@ -67,6 +68,7 @@ public class Menus
 					&& (userChoice < '1') && (userChoice != '2')
 					&& (userChoice != '3') && (userChoice < '4')
 					&& (userChoice != '5') && (userChoice != '7')) {
+				
 				System.out.print("\n\n*** Invalid Choice:: " + userChoice
 						+ " ***");
 
@@ -129,7 +131,7 @@ public class Menus
 
 		if (project == null) 
 		{
-			System.out.print("\n\n*** Project ID:" + userChoiceProjectID + " not found ***");
+			System.out.print("\n\n*** Project ID : " + userChoiceProjectID + " not found ***\n\n");
 		} // if
 
 		return (project);
