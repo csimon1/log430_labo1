@@ -106,34 +106,78 @@ public class Displays {
 	}
 
 	public void displayRoles(Project project) {
-		ArrayList<Role> roles = new ArrayList<>();
-
+		ArrayList<Role> rolesAlreadyAssigned = new ArrayList<>();
+		ArrayList<Role> rolesCurrentlyAssigned = new ArrayList<>();
+		
 		for (Resource r : project.getResourcesAssigned()) {
 			Role role = r.getRole();
-
-			if (role != null && !roles.contains(r.getRole())) {
-				roles.add(r.getRole());
+			
+			if(r.getPreviouslyAssignedProjectList().contains(project)){
+				if (role != null && !rolesAlreadyAssigned.contains(r.getRole())) {
+					rolesAlreadyAssigned.add(r.getRole());
+				}
+			}else
+				if(r.getProjectsAssigned().contains(project)){
+					if (role != null && !rolesAlreadyAssigned.contains(r.getRole())) {
+						rolesCurrentlyAssigned.add(r.getRole());
+					}
 			}
+						
 		}
+		
+		displaySeparator();
+		
+		System.out.println("Roles assigned to Project : " + project.getID()
+				+ " " + project.getProjectName());
+		
+		lineCheck(1);
+		
+		displaySubSeparator();
 
-		if (roles.isEmpty()) {
-			System.out.println("The project : " + project.getProjectName()
-					+ "do not have ressources assigned!\n");
+		if (rolesAlreadyAssigned.isEmpty()) {
+			System.out.println("The project does not have ressources already assigned!");
 			lineCheck(1);
 		} else {
-			System.out.println("\nRoles assigned to: " + " " + project.getID()
-					+ " " + project.getProjectName() + " :");
+			System.out.println("Roles already assigned :");
 			
 			lineCheck(1);
 			
-			for (Role role : roles) {
+			for (Role role : rolesAlreadyAssigned) {
 				displayRole(role);	
 			}
 			
-
-			displaySeparator();
-
+			lineCheck(1);
+			
 		}
+		
+		displaySubSeparator();
+		if (rolesCurrentlyAssigned.isEmpty()) {
+			System.out.println("The project does not have ressources currently assigned!");
+			lineCheck(1);
+		} else {
+			System.out.println("\nRoles currently assigned :");
+			
+			lineCheck(1);
+			
+			for (Role role : rolesCurrentlyAssigned) {
+				displayRole(role);	
+			}
+			
+			System.out.println("\n");
+			
+			lineCheck(1);
+			
+		}
+				
+		displaySubSeparator();
+		
+		System.out.println("Total role assigned : " + (rolesAlreadyAssigned.size() + rolesCurrentlyAssigned.size()));
+		
+		
+		lineCheck(3);
+		
+		displaySeparator();
+
 	}
 
 	private void displaySeparator() {
@@ -141,10 +185,14 @@ public class Displays {
 		System.out.println("\n===========================================================\n");
 		lineCheck(1);
 	}
+	
+	private void displaySubSeparator() {
+		System.out.println("\t---------------------------------------------------");
+		lineCheck(1);
+	}
 
 	public void displayRole(Role role) {
 		System.out.println(role.getID());
-		System.out.println("\n");
 		lineCheck(1);
 	}
 
