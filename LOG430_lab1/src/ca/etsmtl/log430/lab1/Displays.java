@@ -2,7 +2,6 @@ package ca.etsmtl.log430.lab1;
 
 import java.util.ArrayList;
 
-
 /**
  * This class displays various types of information on projects and resources
  * (individually and as lists) to the screen.
@@ -67,7 +66,7 @@ public class Displays {
 	 */
 	public void displayResource(Resource resource) {
 		System.out.println(resource.getID() + " " + resource.getFirstName()
-				+ " " + resource.getLastName() + " " + resource.getRole());
+				+ " " + resource.getLastName() + " " + resource.getRole().getID());
 	}
 
 	/**
@@ -95,78 +94,59 @@ public class Displays {
 		System.out.println("\nResources assigned to: " + " " + project.getID()
 				+ " " + project.getProjectName() + " :");
 		lineCheck(1);
-
-		System.out
-				.println("===========================================================");
-		lineCheck(1);
+		
 
 		for (Resource resource : project.getResourcesAssigned()) {
 			displayResource(resource);
+			lineCheck(1);
 		}
+		
+		displaySeparator();
 
 	}
 
-	public void displayRoles(Project paramProject,
-			ResourceList existingResources) {
-		ArrayList<String> roles = new ArrayList<>();
-		// we going to check if the previous resources contains the actual
-		// project in the file
-		if (existingResources.size() > 0) {
+	public void displayRoles(Project project) {
+		ArrayList<Role> roles = new ArrayList<>();
 
-			for (Resource r : existingResources) {
+		for (Resource r : project.getResourcesAssigned()) {
+			Role role = r.getRole();
 
-				// check first if the current resource have old projects that
-				// are associated with this one.
-				if (r.getPreviouslyAssignedProjectList().size() > 0) {
-
-					for (Project p : r.getPreviouslyAssignedProjectList()) {
-
-						// if the project actually exist
-						if (p != null) {
-							// compare the project Id with this current one.
-							if (p.getID()
-									.equalsIgnoreCase(paramProject.getID())) {
-								// We find a resource that was associated with a
-								// project before run time!
-								if (!roles.contains(r.getRole()))
-									roles.add(r.getRole());
-							}
-						}
-
-					}
-				}
-
-			}
-		}
-
-		// ask current resources
-		if (paramProject.getResourcesAssigned().size() > 0) {
-			for (Resource r : paramProject.getResourcesAssigned()) {
-
-				if (r != null) {
-					if (!roles.contains(r.getRole())) {
-						roles.add(r.getRole());
-					}
-				}
-
+			if (role != null && !roles.contains(r.getRole())) {
+				roles.add(r.getRole());
 			}
 		}
 
 		if (roles.isEmpty()) {
-			System.out.println("The project : " + paramProject.getProjectName()
-					+ "do not have ressources assigned!");
+			System.out.println("The project : " + project.getProjectName()
+					+ "do not have ressources assigned!\n");
+			lineCheck(1);
 		} else {
-			System.out.println("\nRoles assigned to: " + " "
-					+ paramProject.getID() + " "
-					+ paramProject.getProjectName() + " :");
+			System.out.println("\nRoles assigned to: " + " " + project.getID()
+					+ " " + project.getProjectName() + " :");
+			
 			lineCheck(1);
+			
+			for (Role role : roles) {
+				displayRole(role);	
+			}
+			
 
-			System.out
-					.println("===========================================================");
-			lineCheck(1);
+			displaySeparator();
+
 		}
 	}
-	
+
+	private void displaySeparator() {
+		lineCheck(1);
+		System.out.println("\n===========================================================\n");
+		lineCheck(1);
+	}
+
+	public void displayRole(Role role) {
+		System.out.println(role.getID());
+		System.out.println("\n");
+		lineCheck(1);
+	}
 
 	/**
 	 * Lists the projects currently assigned to a resource during this session.
@@ -182,17 +162,15 @@ public class Displays {
 
 		lineCheck(2);
 
-		System.out
-				.println("========================================================= ");
-
-		lineCheck(1);
 
 		for (Project project : resource.getProjectsAssigned()) {
 
 			displayProject(project);
-			lineCheck(2);
+			lineCheck(1);
 
 		}
+		
+		displaySeparator();
 	}
 
 	/**
