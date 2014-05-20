@@ -131,7 +131,7 @@ public class Menus
 
 		if (project == null) 
 		{
-			System.out.print("\n\n*** Project ID:" + userChoiceProjectID + " not found ***");
+			System.out.print("\n\n*** Project ID : " + userChoiceProjectID + " not found ***\n\n");
 		} // if
 
 		return (project);
