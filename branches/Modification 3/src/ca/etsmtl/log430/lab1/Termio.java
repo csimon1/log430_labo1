@@ -172,4 +172,27 @@ public class Termio
 		return integerItem.intValue();
 	} // toInteger
 
+	public static boolean askConfirm(String message) {
+			
+		System.out.println(message);
+		System.out.print("Do you confirm ? y/n");
+		
+		Termio t= new Termio();
+		int essaie = 0;
+		final int maxEssai = 3;
+		
+		while(essaie < maxEssai)
+		{
+			char c = t.keyboardReadChar();
+			
+			if("y".equalsIgnoreCase("" + c)){
+				return true;
+			}
+			
+			++essaie;
+		}
+		
+		return false;
+	}
+
 } // Termio class

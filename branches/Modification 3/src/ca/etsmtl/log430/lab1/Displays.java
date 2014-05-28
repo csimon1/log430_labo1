@@ -66,7 +66,7 @@ public class Displays {
 	 */
 	public void displayResource(Resource resource) {
 		System.out.println(resource.getID() + " " + resource.getFirstName()
-				+ " " + resource.getLastName() + " " + resource.getRole().getID());
+				+ " " + resource.getLastName() + " " + resource.getRole().getID() + " " + resource.getWorkCharge() + "%");
 	}
 
 	/**
@@ -255,4 +255,6 @@ public class Displays {
 			lineCheck(1);
 		}
 	}
+
+	
 } // Display

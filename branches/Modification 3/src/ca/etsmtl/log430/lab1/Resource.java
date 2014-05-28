@@ -35,6 +35,9 @@ package ca.etsmtl.log430.lab1;
 
 public class Resource implements Identiable
 {
+	
+	public static final int MAX_WORK_CHARGE = 100;
+	
 	/**
 	 * Resource's last name
 	 */
