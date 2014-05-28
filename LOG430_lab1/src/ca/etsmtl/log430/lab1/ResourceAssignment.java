@@ -150,19 +150,17 @@ public class ResourceAssignment {
 
 				case '5':
 
-					display.displayResourceList(resourceList
-							.getListOfResources());
-					resource = menu.pickResource(resourceList
-							.getListOfResources());
+					display.displayResourceList(resourceList.getListOfResources());
+					resource = menu.pickResource(resourceList.getListOfResources());
 
 					if (resource != null) {
-						display.displayProjectList(projectList
-								.getListOfProjects());
-						project = menu.pickProject(projectList
-								.getListOfProjects());
+						display.displayProjectList(projectList.getListOfProjects());
+						project = menu.pickProject(projectList.getListOfProjects());
 
 						if (project != null) {
+							project.assignResource(resource);
 							display.displayResourcesAssignedToProject(project);
+													
 						} // if
 					}
 					break;
