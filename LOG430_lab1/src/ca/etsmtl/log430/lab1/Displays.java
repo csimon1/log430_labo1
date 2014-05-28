@@ -112,7 +112,7 @@ public class Displays {
 		for (Resource r : project.getResourcesAssigned()) {
 			Role role = r.getRole();
 			
-			if(r.getPreviouslyAssignedProjectList().contains(project)){
+			if(r.getAlreadyAssignedProjectList().contains(project)){
 				if (role != null && !rolesAlreadyAssigned.contains(r.getRole())) {
 					rolesAlreadyAssigned.add(r.getRole());
 				}
@@ -197,11 +197,35 @@ public class Displays {
 	}
 
 	/**
+	 * Lists the projects already assigned to a resource before this session.
+	 * 
+	 * @param resource
+	 */
+	
+	public void displayProjectsAlreadyAssignedToResource(Resource resource) {
+
+		System.out.println("\nProjects already assigned to : "
+				+ resource.getFirstName() + " " + resource.getLastName() + " "
+				+ resource.getID());
+
+		lineCheck(2);
+
+
+		for (Project project : resource.getAlreadyAssignedProjectList()) {
+
+			displayProject(project);
+			lineCheck(1);
+
+		}
+		
+		displaySeparator();
+	}
+
+	/**
 	 * Lists the projects currently assigned to a resource during this session.
 	 * 
 	 * @param resource
 	 */
-
 	public void displayProjectsAssignedToResource(Resource resource) {
 
 		System.out.println("\nProjects assigned (in this session) to : "

@@ -154,7 +154,7 @@ public class Resource implements Identiable
 	 * @param projectList the previous project list to assign
 	 */
 	//TODO This function is never called!
-	public void setPreviouslyAssignedProjectList(ProjectList projectList) {
+	public void setAlreadyAssignedProjectList(ProjectList projectList) {
 
 		this.alreadyAssignedProjectList = projectList;
 	}
@@ -165,7 +165,7 @@ public class Resource implements Identiable
 	 * @return the current project list.
 	 */
 
-	public ProjectList getPreviouslyAssignedProjectList() {
+	public ProjectList getAlreadyAssignedProjectList() {
 		return alreadyAssignedProjectList;
 	}
 	

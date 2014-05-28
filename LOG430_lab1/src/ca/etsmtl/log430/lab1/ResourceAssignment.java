@@ -166,6 +166,17 @@ public class ResourceAssignment {
 						} // if
 					}
 					break;
+					
+				case '6':
+
+					display.displayResourceList(resourceList
+							.getListOfResources());
+					resource = menu.pickResource(resourceList
+							.getListOfResources());
+					if (resource != null) {
+						display.displayProjectsAlreadyAssignedToResource(resource);
+					} // if
+					break;
 
 				case '7':
 
