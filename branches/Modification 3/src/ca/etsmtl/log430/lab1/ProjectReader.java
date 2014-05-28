@@ -161,7 +161,6 @@ public class ProjectReader extends LineOfTextFileReader
 				token = lineOfText.substring(frontIndex);
 
 			} else {
-
 				token = lineOfText.substring(frontIndex, backIndex);
 			}
 
@@ -196,7 +195,6 @@ public class ProjectReader extends LineOfTextFileReader
                     done = true;
 
                     break;
-
             } // end switch
             
         } // end while
