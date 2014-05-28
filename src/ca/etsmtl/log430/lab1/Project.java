@@ -80,16 +80,20 @@ public class Project implements Identiable
 		resourcesAssigned = new ResourceList();
 
 		this.setID(id);
+		
+		this.setPriority(Priority.NUL);
 	}
 
 	/**
 	 * Assign a resource to a project.
 	 * 
 	 * @param resource the Ressource object to assign
+	 * @return true if resource is assigned
 	 */
-	public void assignResource(Resource resource) 
+	public boolean assignResource(Resource resource) 
 	{
-		resourcesAssigned.addResource(resource);
+		
+			return resourcesAssigned.addResource(resource);
 	}
 
 	/**

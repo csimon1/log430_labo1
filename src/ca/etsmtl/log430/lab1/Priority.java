@@ -16,6 +16,7 @@ public class Priority {
 	public static final Priority HIGH = new Priority("H", "Haute", 100);
 	public static final Priority MEDIUM = new Priority("M", "Medium", 50 );
 	public static final Priority LOW = new Priority("L", "Low", 25);
+	public static final Priority NUL = new Priority("N", "Nul", 0);
 	
 	private static Map<String, Priority> allPriorities;
 	
@@ -25,6 +26,7 @@ public class Priority {
 		allPriorities.put(HIGH.id,HIGH);
 		allPriorities.put(MEDIUM.id,MEDIUM);
 		allPriorities.put(LOW.id,LOW);
+		allPriorities.put(NUL.id,NUL);
 	}
 	
 	public static Priority getPriority(String id){	

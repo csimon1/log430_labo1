@@ -158,9 +158,19 @@ public class ResourceAssignment {
 						project = menu.pickProject(projectList.getListOfProjects());
 
 						if (project != null) {
-							project.assignResource(resource);
-							display.displayResourcesAssignedToProject(project);
-													
+							boolean assign = false;
+							if(project.getPriority().getRessourceCharge() + resource.getWorkCharge() <= Resource.MAX_WORK_CHARGE){	
+								assign = true;
+							}
+							else{
+								display.displayProjectsAssignedToResource(resource);
+								assign = Termio.askConfirm("the ressource will be overallocated");
+							}
+							
+							if(assign)
+								project.assignResource(resource);
+								display.displayResourcesAssignedToProject(project);
+							
 						} // if
 					}
 					break;
