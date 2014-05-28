@@ -63,6 +63,10 @@ public class Priority {
 		return ressource_occupation;
 	}
 	
+	@Override
+	public String toString() {
+		return this.desc;
+	}
 	
 	
 	
