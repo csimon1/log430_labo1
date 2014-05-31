@@ -1,5 +1,10 @@
 package ca.etsmtl.log430.lab1;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  * This class will read from the InputFile and instantiate the Project objects
@@ -168,41 +173,52 @@ public class ProjectReader extends LineOfTextFileReader
             {
                 case 0 : // Project ID 
                     newProject.setID(token);
-                    frontIndex = backIndex + 1;
-                    tokenCount++;
                     break;
-
+                    
                 case 1 : // Project name
-                    newProject.setProjectName(token);
-                    frontIndex = backIndex + 1;
-                    tokenCount++;
+                    newProject.setProjectName(token);   
                     break;
-
+                    
                 case 2 : // Start date
-                    newProject.setStartDate(token);
-                    frontIndex = backIndex + 1;
-                    tokenCount++;
-                    break;
+                	
+					try {
+						newProject.setStartDate(this.parseDate(token));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}  
+					break;
 
                 case 3 : // End date
-                    newProject.setEndDate(token);
-                    frontIndex = backIndex + 1;
-                    tokenCount++;
-                    break;
+                	               	
+					try {
+						newProject.setEndDate(this.parseDate(token));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                  break;
+                case 4 :
+                	 newProject.setPriority(Priority.getPriority(token));
+                     done = true;
+                     break;
 
-                default : // Priority
-                    newProject.setPriority(Priority.getPriority(token));
-                    done = true;
-
-                    break;
             } // end switch
+            
+        	frontIndex = backIndex + 1;
+            tokenCount++;
             
         } // end while
 
         return (newProject);
     } // ParseText
 
-    /**
+    private Date parseDate(String token) throws ParseException {
+    	DateFormat dform = new SimpleDateFormat("yyyy-MM-dd"); 
+    	return dform.parse(token);
+	}
+
+	/**
      * This function modifies the project list object to read.
      * @param projectList the project list object to read.
      */

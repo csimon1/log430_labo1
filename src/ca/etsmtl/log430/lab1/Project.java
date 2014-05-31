@@ -1,5 +1,7 @@
 package ca.etsmtl.log430.lab1;
 
+import java.util.Date;
+
 
 /** This class defines the Project object for the system.
 * 
@@ -45,12 +47,12 @@ public class Project implements Identiable
 	/**
 	 * Project start date.
 	 */
-	private String startDate;
+	private Date startDate;
 
 	/**
 	 * Project end date.
 	 */
-	private String endDate;
+	private Date endDate;
 
 	/**
 	 * Project priority
@@ -92,8 +94,7 @@ public class Project implements Identiable
 	 */
 	public boolean assignResource(Resource resource) 
 	{
-		
-			return resourcesAssigned.addResource(resource);
+		return resourcesAssigned.addResource(resource);
 	}
 
 	/**
@@ -137,7 +138,7 @@ public class Project implements Identiable
 	 * This function modifies the startDate of the project.
 	 * @param startDate the start date of the project
 	 */
-	public void setStartDate(String startDate) 
+	public void setStartDate(Date startDate) 
 	{
 		this.startDate = startDate;
 	}
@@ -146,7 +147,7 @@ public class Project implements Identiable
 	 * This function return the start date of the project.
 	 * @return the project start date
 	 */
-	public String getStartDate() 
+	public Date getStartDate() 
 	{
 		return startDate;
 	}
@@ -155,7 +156,7 @@ public class Project implements Identiable
 	 * This function modifies the end date of the project.
 	 * @param endDate the end date of the project
 	 */
-	public void setEndDate(String endDate) 
+	public void setEndDate(Date endDate) 
 	{
 		this.endDate = endDate;
 	}
@@ -164,7 +165,7 @@ public class Project implements Identiable
 	 * This function return the end date of the project.
 	 * @return the end date of the project
 	 */
-	public String getEndDate() 
+	public Date getEndDate() 
 	{
 		return endDate;
 	}
@@ -176,7 +177,6 @@ public class Project implements Identiable
 	public Priority getPriority() {
 		return priority;
 	}
-
 
 	public void setPriority(Priority priority) {
 

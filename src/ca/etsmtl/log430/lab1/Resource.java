@@ -232,6 +232,17 @@ public class Resource implements Identiable
 	public int getWorkCharge() {
 		return getWorkChargePreviouslyAssigned() + getWorkChargeCurrentlyAssigned();
 	}
+
+	public boolean isAavailableForProject(Project project) {
+		
+		
+				
+//		project.getPriority().getRessourceCharge() + resource.getWorkCharge() <= Resource.MAX_WORK_CHARGE
+		
+		
+		
+		return false;
+	}
 	
 	
 } // Resource class

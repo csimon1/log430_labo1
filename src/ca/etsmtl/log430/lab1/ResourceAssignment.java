@@ -159,7 +159,7 @@ public class ResourceAssignment {
 
 						if (project != null) {
 							boolean assign = false;
-							if(project.getPriority().getRessourceCharge() + resource.getWorkCharge() <= Resource.MAX_WORK_CHARGE){	
+							if(resource.isAavailableForProject(project)){	
 								assign = true;
 							}
 							else{
@@ -173,6 +173,7 @@ public class ResourceAssignment {
 							
 						} // if
 					}
+					
 					break;
 
 				case '7':
