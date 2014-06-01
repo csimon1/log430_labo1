@@ -1,9 +1,10 @@
-package ca.etsmtl.log430.lab1;
+package ca.etsmtl.log430.lab1.DAO;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 
 /**
  * This class provides the methods that allow the caller to open an existing
@@ -39,7 +40,9 @@ public class LineOfTextFileReader
 	public boolean openFile(String pathName) 
 	{
 		boolean result;
-		inputFile = new File(pathName);
+		// This allows the opening of files located from this actual package.
+		URL localPath = this.getClass().getResource(pathName);
+		inputFile = new File(localPath.getFile());
 
 		// Open input file. The input file is a field oriented and
 		// space-separated.
@@ -48,8 +51,10 @@ public class LineOfTextFileReader
 		// Check to ensure that the inputFile exists
 		if (!inputFile.exists()) 
 		{
+			System.out.println("\"" +localPath + "\" should be in the  same directory as: "
+								+ this.getClass().getPackage().getName());
+			
 			result = false;
-
 		}
 		else 
 		{

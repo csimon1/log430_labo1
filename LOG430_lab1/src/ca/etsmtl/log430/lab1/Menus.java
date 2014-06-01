@@ -1,5 +1,7 @@
 package ca.etsmtl.log430.lab1;
 
+import ca.etsmtl.log430.lab1.DAO.Termio;
+
 
 /**
  * This class presents the user with menus, accepts their choice, ensures their

@@ -28,10 +28,10 @@
  * and dispatches commands at the user's request. When the program is started,
  * the resource objects are initialized from a file (<tt>resources.txt</tt> is an
  * example). The format of this file is listed in the
- * {@link ca.etsmtl.log430.lab1.ResourceReader ResourceReader} class header.
+ * {@link ca.etsmtl.log430.lab1.DAO.ResourceReader ResourceReader} class header.
  * The project objects are initialized from another file (<tt>projects.txt</tt> is
  * an example). The format of this file is listed in the
- * {@link ca.etsmtl.log430.lab1.ProjectReader ProjectReader} class header.<br><br>
+ * {@link ca.etsmtl.log430.lab1.DAO.ProjectReader ProjectReader} class header.<br><br>
  * 
  * The project objects are initialized from another file (<tt>jobs.txt</tt> is
  * an example). The format of this file is listed in the

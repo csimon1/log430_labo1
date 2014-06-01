@@ -1,4 +1,10 @@
-package ca.etsmtl.log430.lab1;
+package ca.etsmtl.log430.lab1.DAO;
+
+import ca.etsmtl.log430.lab1.Project;
+import ca.etsmtl.log430.lab1.ProjectList;
+import ca.etsmtl.log430.lab1.Resource;
+import ca.etsmtl.log430.lab1.ResourceList;
+import ca.etsmtl.log430.lab1.Role;
 
 /**
  * Reads from the InputFile and instantiates the Resource objects in the system.

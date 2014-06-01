@@ -2,6 +2,8 @@ package ca.etsmtl.log430.lab1;
 
 import java.util.ArrayList;
 
+import ca.etsmtl.log430.lab1.DAO.Termio;
+
 /**
  * This class displays various types of information on projects and resources
  * (individually and as lists) to the screen.

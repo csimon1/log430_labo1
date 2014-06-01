@@ -2,6 +2,9 @@ package ca.etsmtl.log430.lab1;
 
 import java.util.ArrayList;
 
+import ca.etsmtl.log430.lab1.DAO.ProjectReader;
+import ca.etsmtl.log430.lab1.DAO.ResourceReader;
+
 /**
  * Main class for assignment 1 for LOG430, Architecture logicielle.
  * 
