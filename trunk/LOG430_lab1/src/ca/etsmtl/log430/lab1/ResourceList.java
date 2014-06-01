@@ -43,8 +43,8 @@ public class ResourceList extends List<Resource> {
 	 * 
 	 * @param resource
 	 */
-	public void addResource(Resource resource) {
-		add(resource);
+	public boolean addResource(Resource resource) {
+		return add(resource);
 	}
 
 

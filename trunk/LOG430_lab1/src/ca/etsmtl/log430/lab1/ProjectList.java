@@ -51,8 +51,8 @@ public class ProjectList extends List<Project> {
 	 *            New project to be added to the list. All the issues of casting
 	 *            are taken care of within this class.
 	 */
-	public void addProject(Project project) {
-		add(project);
+	public boolean addProject(Project project) {
+		return add(project);
 	}
 
 	/**

@@ -1,6 +1,9 @@
 package ca.etsmtl.log430.lab1;
 
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 
 /** This class defines the Project object for the system.
@@ -44,20 +47,12 @@ public class Project implements Identiable
 	 */
 	private String name;
 
-	/**
-	 * Project start date.
-	 */
-	private String startDate;
-
-	/**
-	 * Project end date.
-	 */
-	private String endDate;
+	private Periode projectPeriode;
 
 	/**
 	 * Project priority
 	 */
-	private String priority;
+	private Priority priority;
 
 	/**
 	 * List of resources assigned to the project
@@ -82,16 +77,33 @@ public class Project implements Identiable
 		resourcesAssigned = new ResourceList();
 
 		this.setID(id);
+		
+		Date today = Calendar.getInstance().getTime();
+		
+		this.projectPeriode = new Periode(today,today);
+		
+		this.setPriority(Priority.NUL);
 	}
 
 	/**
 	 * Assign a resource to a project.
 	 * 
+<<<<<<< .working
 	 * @param resource the Ressource object to assign
+=======
+	 * @param resource the Ressource object to assign
+	 * @return true if resource is assigned
+>>>>>>> .merge-right.r72
 	 */
-	public void assignResource(Resource resource) 
+
+	public boolean assignResource(Resource resource) 
 	{
-		resourcesAssigned.addResource(resource);
+		if(!this.resourcesAssigned.contains(resource)){
+			resource.assignProject(this);
+			return resourcesAssigned.addResource(resource);
+		}
+		
+		return false;
 	}
 
 	/**
@@ -131,57 +143,54 @@ public class Project implements Identiable
 		return name;
 	}
 
+
 	/**
 	 * This function modifies the startDate of the project.
 	 * @param startDate the start date of the project
 	 */
-	public void setStartDate(String startDate) 
+	public void setStartDate(Date startDate) 
 	{
-		this.startDate = startDate;
+		this.projectPeriode = new Periode(startDate, this.projectPeriode.getEndDate());
 	}
 	
 	/**
 	 * This function return the start date of the project.
 	 * @return the project start date
 	 */
-	public String getStartDate() 
+	public Date getStartDate() 
 	{
-		return startDate;
+		return this.projectPeriode.getStartDate();
 	}
 	
 	/**
 	 * This function modifies the end date of the project.
 	 * @param endDate the end date of the project
 	 */
-	public void setEndDate(String endDate) 
+	public void setEndDate(Date endDate) 
 	{
-		this.endDate = endDate;
+		this.projectPeriode = new Periode(this.projectPeriode.getStartDate(),endDate);
 	}
 
 	/**
 	 * This function return the end date of the project.
 	 * @return the end date of the project
 	 */
-	public String getEndDate() 
+	public Date getEndDate() 
 	{
-		return endDate;
+		return this.projectPeriode.getEndDate();
+
 	}
 
-	/**
-	 * This function return the priority of the project.
-	 * @return the priority of the project
-	 */
-	public String getPriority() 
-	{
+/**
+ * This function return the priority of the project.
+ * @return the priority of the project
+ */
+	public Priority getPriority() {
 		return priority;
 	}
 
-	/**
-	 * This function modifies the priority of the project.
-	 * @param priority the priority of the project
-	 */
-	public void setPriority(String priority) 
-	{
+	public void setPriority(Priority priority) {
+
 		this.priority = priority;
 	}
 
@@ -202,5 +211,11 @@ public class Project implements Identiable
 	{
 		return resourcesAssigned;
 	}
+
+	public Periode getPeriode() {
+		return new Periode(this.projectPeriode);
+	}
+	
+	
 
 } // Project class
