@@ -1,5 +1,6 @@
 package ca.etsmtl.log430.lab1;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +34,7 @@ public class Displays {
 	private int lineCount = 0;
 	private int maxLinesDisplayed = 18;
 
+
 	/**
 	 * Counts the number of lines that has been printed. Once a set number of
 	 * lines has been printed, the user is asked to press the enter key to
@@ -65,8 +67,19 @@ public class Displays {
 	 * @param resource
 	 */
 	public void displayResource(Resource resource) {
-		System.out.println(resource.getID() + " " + resource.getFirstName()
-				+ " " + resource.getLastName() + " " + resource.getRole().getID() + " " + resource.getWorkCharge() + "%");
+		
+		
+		System.out.print(resource.getID() + " " + resource.getFirstName()
+				+ " " + resource.getLastName() + " " + resource.getRole().getName());
+		
+		String overallocated = "";
+		if(resource.isOverallocated()){
+			overallocated = " !!!overAllocated!!!";
+		}
+		
+		System.out.println(overallocated);
+		
+		lineCheck(1);
 	}
 
 	/**
@@ -77,8 +90,11 @@ public class Displays {
 	 * @param project
 	 */
 	public void displayProject(Project project) {
+		
+		SimpleDateFormat dForm = new SimpleDateFormat("yyyy-MM-dd");
+		
 		System.out.println(project.getID() + " " + project.getProjectName()
-				+ " " + project.getStartDate() + " " + project.getEndDate()
+				+ " " + dForm.format(project.getStartDate()) + " " + dForm.format(project.getEndDate())
 				+ " " + project.getPriority());
 	}
 
@@ -117,7 +133,7 @@ public class Displays {
 					rolesAlreadyAssigned.add(r.getRole());
 				}
 			}else
-				if(r.getProjectsAssigned().contains(project)){
+				if(r.getProjectsCurrentlyAssigned().contains(project)){
 					if (role != null && !rolesAlreadyAssigned.contains(r.getRole())) {
 						rolesCurrentlyAssigned.add(r.getRole());
 					}

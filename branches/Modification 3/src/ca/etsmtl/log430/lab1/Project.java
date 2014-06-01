@@ -1,5 +1,8 @@
 package ca.etsmtl.log430.lab1;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -44,15 +47,7 @@ public class Project implements Identiable
 	 */
 	private String name;
 
-	/**
-	 * Project start date.
-	 */
-	private Date startDate;
-
-	/**
-	 * Project end date.
-	 */
-	private Date endDate;
+	private Periode projectPeriode;
 
 	/**
 	 * Project priority
@@ -83,6 +78,10 @@ public class Project implements Identiable
 
 		this.setID(id);
 		
+		Date today = Calendar.getInstance().getTime();
+		
+		this.projectPeriode = new Periode(today,today);
+		
 		this.setPriority(Priority.NUL);
 	}
 
@@ -94,9 +93,13 @@ public class Project implements Identiable
 	 */
 	public boolean assignResource(Resource resource) 
 	{
-		return resourcesAssigned.addResource(resource);
+		if(!this.resourcesAssigned.contains(resource)){
+			resource.assignProject(this);
+			return resourcesAssigned.addResource(resource);
+		}
+		
+		return false;
 	}
-
 	/**
 	 * This function change the project ID.
 	 * @param projectID the project ID to change.
@@ -140,7 +143,7 @@ public class Project implements Identiable
 	 */
 	public void setStartDate(Date startDate) 
 	{
-		this.startDate = startDate;
+		this.projectPeriode = new Periode(startDate, this.projectPeriode.getEndDate());
 	}
 	
 	/**
@@ -149,7 +152,7 @@ public class Project implements Identiable
 	 */
 	public Date getStartDate() 
 	{
-		return startDate;
+		return this.projectPeriode.getStartDate();
 	}
 	
 	/**
@@ -158,7 +161,7 @@ public class Project implements Identiable
 	 */
 	public void setEndDate(Date endDate) 
 	{
-		this.endDate = endDate;
+		this.projectPeriode = new Periode(this.projectPeriode.getStartDate(),endDate);
 	}
 
 	/**
@@ -167,7 +170,7 @@ public class Project implements Identiable
 	 */
 	public Date getEndDate() 
 	{
-		return endDate;
+		return this.projectPeriode.getEndDate();
 	}
 
 /**
@@ -200,5 +203,11 @@ public class Project implements Identiable
 	{
 		return resourcesAssigned;
 	}
+
+	public Periode getPeriode() {
+		return new Periode(this.projectPeriode);
+	}
+	
+	
 
 } // Project class
