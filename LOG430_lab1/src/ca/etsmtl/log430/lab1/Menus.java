@@ -50,9 +50,10 @@ public class Menus
 		boolean valid = true;
 
 
+
 		while (valid) 
 		{
-
+			
 			System.out.println("1) List resources");
 			System.out.println("2) List projects");
 			System.out.println("3) List projects currently assigned to a resource");

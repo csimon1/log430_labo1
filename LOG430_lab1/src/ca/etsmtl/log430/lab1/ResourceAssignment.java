@@ -41,7 +41,7 @@ import java.util.ArrayList;
 /*
  * Modification Log
  * **************************************************************************
- * v1.6, S. Abraham  , 2014-May-07 - Formated source code for easy reading.
+ * v1.6, S. Abraham , 2014-May-07 - Formated source code for easy reading.
  * 
  * v1.5, R. Champagne, 2013-Sep-13 - Various refactorings for new lab.
  * 
@@ -61,7 +61,9 @@ public class ResourceAssignment {
 
 	/**
 	 * Main method
-	 * @param argv arguments to add a the run configuration.
+	 * 
+	 * @param argv
+	 *            arguments to add a the run configuration.
 	 */
 	public static void main(String argv[]) {
 		if (argv.length != 2) {
@@ -86,19 +88,21 @@ public class ResourceAssignment {
 
 			/*
 			 * The following instantiations create a list of projects and
-			 * resources. The pathname for the file containing course information
-			 * is passed to the main program on the command line as the first
-			 * argument (argv[0]). The pathname for the file containing resource
+			 * resources. The pathname for the file containing course
 			 * information is passed to the main program on the command line as
-			 * the second argument (argv[1]). An example resources file and projects
-			 * file is provided as resources.txt and projects.txt
+			 * the first argument (argv[0]). The pathname for the file
+			 * containing resource information is passed to the main program on
+			 * the command line as the second argument (argv[1]). An example
+			 * resources file and projects file is provided as resources.txt and
+			 * projects.txt
 			 */
 			ProjectReader projectList = new ProjectReader(argv[0]);
 			ResourceReader resourceList = null;
-			
+
 			if (projectList.getListOfProjects() == null) {
 
-				System.out.println("\n *** The projects list was not initialized ***");
+				System.out
+						.println("\n *** The projects list was not initialized ***");
 				done = true;
 			} else {
 
@@ -106,12 +110,13 @@ public class ResourceAssignment {
 						projectList.getListOfProjects());
 
 				if (resourceList.getListOfResources() == null) {
-					System.out.println("\n *** The ressource list was not initialized ***");
+					System.out
+							.println("\n *** The ressource list was not initialized ***");
 					done = true;
 				}
 
 			}
-			
+
 			while (!done) {
 				userChoice = menu.mainMenu();
 
@@ -150,19 +155,32 @@ public class ResourceAssignment {
 
 				case '5':
 
-					display.displayResourceList(resourceList.getListOfResources());
-					resource = menu.pickResource(resourceList.getListOfResources());
+					display.displayResourceList(resourceList
+							.getListOfResources());
+					resource = menu.pickResource(resourceList
+							.getListOfResources());
 
 					if (resource != null) {
-						display.displayProjectList(projectList.getListOfProjects());
-						project = menu.pickProject(projectList.getListOfProjects());
+						display.displayProjectList(projectList
+								.getListOfProjects());
+						project = menu.pickProject(projectList
+								.getListOfProjects());
 
-						if (project != null) {
+						boolean assign = false;
+						if (resource.isAavailableForProject(project)) {
+							assign = true;
+						} else {
+							display.displayProjectsAssignedToResource(resource);
+							assign = Termio
+									.askConfirm("the ressource will be overallocated");
+						}
+
+						if (assign)
 							project.assignResource(resource);
-							display.displayResourcesAssignedToProject(project);
-													
-						} // if
-					}
+						display.displayResourcesAssignedToProject(project);
+
+					} // if
+
 					break;
 
 				case '7':
@@ -180,7 +198,6 @@ public class ResourceAssignment {
 					break;
 
 				case 'X':
-
 				case 'x':
 					done = true;
 

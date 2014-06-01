@@ -197,9 +197,7 @@ public class ResourceReader extends LineOfTextFileReader {
 					p = new Project(token);
 				}
 				
-				resource.getPreviouslyAssignedProjectList().addProject(p);
 				p.assignResource(resource);
-
 				frontIndex = backIndex + 1;
 				break;
 			} // end switch

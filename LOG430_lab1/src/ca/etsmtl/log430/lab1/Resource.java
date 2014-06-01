@@ -1,5 +1,9 @@
 package ca.etsmtl.log430.lab1;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * This class defines the Resource object for the system. Besides the basic
@@ -35,6 +39,9 @@ package ca.etsmtl.log430.lab1;
 
 public class Resource implements Identiable
 {
+	
+	public static final int MAX_WORK_CHARGE = 100;
+
 	/**
 	 * Resource's last name
 	 */
@@ -58,21 +65,37 @@ public class Resource implements Identiable
 	/**
 	 *  List of projects the resource is already allocated to
 	 */
-	private ProjectList alreadyAssignedProjectList = new ProjectList();
+	private ProjectList alreadyAssignedProjectList;
 
 	/**
 	 *  List of projects assigned to the resource in this session
 	 */
-	private ProjectList projectsAssignedList = new ProjectList();
+	private ProjectList projectsCurrentlyAssignedList;
 
+	private boolean overallocated;
+
+	
+	public Resource() {
+		overallocated = false;
+		alreadyAssignedProjectList = new ProjectList();
+		projectsCurrentlyAssignedList = new ProjectList();
+	}
+	
 	/**
 	 * Assigns a project to a resource.
 	 * 
 	 * @param project the project to assign
 	 */
-	public void assignProject(Project project) 
+	public boolean assignProject(Project project) 
 	{
-		getProjectsAssigned().addProject(project);
+		if(!this.projectsCurrentlyAssignedList.contains(project)){
+			if(!this.isAavailableForProject(project)){
+				this.overallocated = true;
+			}
+			return this.projectsCurrentlyAssignedList.addProject(project);
+		}
+		
+		return false;
 
 	}
 
@@ -175,16 +198,102 @@ public class Resource implements Identiable
 	 */
 	//TODO This function is never called!
 	public void setProjectsAssigned(ProjectList projectList) {
-		this.projectsAssignedList = projectList;
+		this.projectsCurrentlyAssignedList = projectList;
 	}
 
 	/**
 	 * This function return the list of the project assigned to the current session.
 	 * @return the current project assigned to this session
 	 */
-	public ProjectList getProjectsAssigned() 
+	public ProjectList getProjectsCurrentlyAssigned() 
 	{
-		return projectsAssignedList;
+		return projectsCurrentlyAssignedList;
+	}
+	
+	public ProjectList getProjectsAssigned(){
+		
+		ProjectList projectAssigned = new ProjectList();
+		
+		projectAssigned.addAll(this.getPreviouslyAssignedProjectList());
+		projectAssigned.addAll(getProjectsCurrentlyAssigned());
+		
+		return projectAssigned;
 	}
 
+	/**
+	 * 
+	 * @return the work charge previously assign for this resource (in percentage)
+	 */
+	public int getWorkChargePreviouslyAssigned() {
+		int chargeWorkPreviouslyAssigned = 0;
+		ProjectList projectList = this.getPreviouslyAssignedProjectList();
+		
+		if( projectList != null){
+			for (Project project : projectList) {
+				chargeWorkPreviouslyAssigned += project.getPriority().getRessourceCharge();
+			}
+		}
+		
+		return chargeWorkPreviouslyAssigned;
+	}
+
+	/**
+	 * 
+	 * @return the work charge currently assign for this resource (in percentage)
+	 */
+	public int getWorkChargeCurrentlyAssigned() {
+		
+		int chargeWorkCurrentlyAssigned = 0;
+		ProjectList projectList = this.getProjectsCurrentlyAssigned();
+		
+		if( projectList != null){
+			for (Project project : projectList) {
+				chargeWorkCurrentlyAssigned += project.getPriority().getRessourceCharge();
+			}
+		}
+		
+		return chargeWorkCurrentlyAssigned;
+	}
+	
+	/**
+	 * 
+	 * @return total work charge for this resource (in percentage)
+	 */
+	public int getWorkCharge() {
+		return getWorkChargePreviouslyAssigned() + getWorkChargeCurrentlyAssigned();
+	}
+	
+	/**
+	 * 
+	 * @return total work charge for a date for this resource (in percentage)
+	 */
+	public int getWorkCharge(Date d) {
+		return getWorkChargePreviouslyAssigned() + getWorkChargeCurrentlyAssigned();
+	}
+
+	
+	public boolean isAavailableForProject(Project project) {
+		
+		for (Project p : this.getProjectsAssigned()) {
+			if(p.getPeriode().contains(project.getStartDate())){
+				if(p.getPriority().getRessourceCharge() + project.getPriority().getRessourceCharge() > Resource.MAX_WORK_CHARGE){
+					return false;
+				}
+			}
+			
+			if(p.getPeriode().contains(project.getEndDate())){
+				if(p.getPriority().getRessourceCharge() + project.getPriority().getRessourceCharge() > Resource.MAX_WORK_CHARGE){
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+	
+	public boolean isOverallocated(){
+		return overallocated;
+	}
+	
+	
 } // Resource class
