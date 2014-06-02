@@ -1,9 +1,13 @@
-package ca.etsmtl.log430.lab1;
+package ca.etsmtl.log430.lab1.DAO;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import ca.etsmtl.log430.lab1.services.Priority;
+import ca.etsmtl.log430.lab1.services.Project;
+import ca.etsmtl.log430.lab1.services.ProjectList;
 
 
 /**

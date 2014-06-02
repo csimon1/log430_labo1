@@ -1,7 +1,14 @@
-package ca.etsmtl.log430.lab1;
+package ca.etsmtl.log430.lab1.presentation;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import ca.etsmtl.log430.lab1.DAO.Termio;
+import ca.etsmtl.log430.lab1.services.Project;
+import ca.etsmtl.log430.lab1.services.ProjectList;
+import ca.etsmtl.log430.lab1.services.Resource;
+import ca.etsmtl.log430.lab1.services.ResourceList;
+import ca.etsmtl.log430.lab1.services.Role;
 
 /**
  * This class displays various types of information on projects and resources

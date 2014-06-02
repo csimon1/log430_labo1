@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ca.etsmtl.log430.lab1;
+package ca.etsmtl.log430.lab1.services;
 
 import java.util.HashMap;
 import java.util.Map;
