@@ -1,4 +1,10 @@
-package ca.etsmtl.log430.lab1;
+package ca.etsmtl.log430.lab1.controller;
+
+import ca.etsmtl.log430.lab1.DAO.Termio;
+import ca.etsmtl.log430.lab1.services.Project;
+import ca.etsmtl.log430.lab1.services.ProjectList;
+import ca.etsmtl.log430.lab1.services.Resource;
+import ca.etsmtl.log430.lab1.services.ResourceList;
 
 
 /**
