@@ -167,13 +167,10 @@ public class ResourceAssignment {
 								.getListOfProjects());
 
 						boolean assign = false;
-						if (resource.isAavailableForProject(project)) {
+						if (resource.isAvailableForProject(project))
+						{
 							assign = true;
-						} else {
-							display.displayProjectsAssignedToResource(resource);
-							assign = Termio
-									.askConfirm("the ressource will be overallocated");
-						}
+						} 
 
 						if (assign)
 							project.assignResource(resource);
@@ -181,6 +178,16 @@ public class ResourceAssignment {
 
 					} // if
 
+					break;
+					
+				case '6':
+					display.displayResourceList(resourceList
+							.getListOfResources());
+					resource = menu.pickResource(resourceList
+							.getListOfResources());
+					if (resource != null) {
+						display.displayProjectsPreviouslyAssignedToResource(resource);
+					} // if
 					break;
 
 				case '7':
