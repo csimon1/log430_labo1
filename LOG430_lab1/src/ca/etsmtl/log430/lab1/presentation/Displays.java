@@ -2,6 +2,9 @@ package ca.etsmtl.log430.lab1.presentation;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import ca.etsmtl.log430.lab1.DAO.Termio;
 import ca.etsmtl.log430.lab1.services.Project;
@@ -41,7 +44,6 @@ public class Displays {
 	private int lineCount = 0;
 	private int maxLinesDisplayed = 18;
 
-
 	/**
 	 * Counts the number of lines that has been printed. Once a set number of
 	 * lines has been printed, the user is asked to press the enter key to
@@ -75,16 +77,16 @@ public class Displays {
 	 */
 	public void displayResource(Resource resource) {
 
-		System.out.print(resource.getID() + " " + resource.getFirstName()
-				+ " " + resource.getLastName() + " " + resource.getRole().getName());
-		
+		System.out.print(resource.getID() + " " + resource.getFirstName() + " "
+				+ resource.getLastName() + " " + resource.getRole().getName());
+
 		String overallocated = "";
-		if(resource.isOverallocated()){
+		if (resource.isOverallocated()) {
 			overallocated = " !!!overAllocated!!!";
 		}
-		
+
 		System.out.println(overallocated);
-		
+
 		lineCheck(1);
 	}
 
@@ -96,12 +98,13 @@ public class Displays {
 	 * @param project
 	 */
 	public void displayProject(Project project) {
-		
+
 		SimpleDateFormat dForm = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		System.out.println(project.getID() + " " + project.getProjectName()
-				+ " " + dForm.format(project.getStartDate()) + " " + dForm.format(project.getEndDate())
-				+ " " + project.getPriority());
+				+ " " + dForm.format(project.getStartDate()) + " "
+				+ dForm.format(project.getEndDate()) + " "
+				+ project.getPriority());
 	}
 
 	/**
@@ -119,82 +122,95 @@ public class Displays {
 			displayResource(resource);
 			lineCheck(1);
 		}
-		
+
 		displaySeparator();
 
 	}
 
 	public void displayRoles(Project project) {
-		ArrayList<Role> rolesAlreadyAssigned = new ArrayList<>();
-		ArrayList<Role> rolesCurrentlyAssigned = new ArrayList<>();
-		
-		for (Resource r : project.getResourcesAssigned()) {
-			Role role = r.getRole();
-			
-			if(r.getPreviouslyAssignedProjectList().contains(project)){
-				if (role != null && !rolesAlreadyAssigned.contains(r.getRole())) {
-					rolesAlreadyAssigned.add(r.getRole());
+		Map<Role, Integer> rolesAlreadyAssigned = new HashMap<>();
+		Map<Role, Integer> rolesCurrentlyAssigned = new HashMap<>();
+
+		for (Resource ressource : project.getResourcesAssigned()) {
+			Role role = ressource.getRole();
+
+			if (ressource.getPreviouslyAssignedProjectList().contains(project)) {
+
+				Integer roleCount = rolesAlreadyAssigned.get(role);
+
+				if (roleCount != null) {
+					rolesAlreadyAssigned.put(role, ++roleCount);
+				} else {
+					rolesAlreadyAssigned.put(role, 1);
 				}
-			}else
-				if(r.getProjectsCurrentlyAssigned().contains(project)){
-					if (role != null && !rolesAlreadyAssigned.contains(r.getRole())) {
-						rolesCurrentlyAssigned.add(r.getRole());
-					}
+
+			} else if (ressource.getProjectsCurrentlyAssigned().contains(project)) {
+
+				Integer roleCount = rolesCurrentlyAssigned.get(role);
+
+				if (roleCount != null) {
+					rolesCurrentlyAssigned.put(role, ++roleCount);
+				} else {
+					rolesCurrentlyAssigned.put(role, 1);
+				}
 			}
-						
+
 		}
-		
+
 		displaySeparator();
-		
+
 		System.out.println("Roles assigned to Project : " + project.getID()
 				+ " " + project.getProjectName());
-		
+
 		lineCheck(1);
-		
+
 		displaySubSeparator();
 
 		if (rolesAlreadyAssigned.isEmpty()) {
-			System.out.println("The project does not have ressources already assigned!");
+			System.out
+					.println("The project does not have ressources already assigned!");
 			lineCheck(1);
 		} else {
 			System.out.println("Roles already assigned :");
-			
+
 			lineCheck(1);
-			
-			for (Role role : rolesAlreadyAssigned) {
-				displayRole(role);	
+
+			for (Entry<Role, Integer> role : rolesAlreadyAssigned.entrySet()) {
+				System.out.println(role.getKey().getName() + " -> "	+ role.getValue());
+				lineCheck(1);
 			}
-			
+
 			lineCheck(1);
-			
+
 		}
-		
+
 		displaySubSeparator();
+
 		if (rolesCurrentlyAssigned.isEmpty()) {
 			System.out.println("The project does not have ressources currently assigned!");
 			lineCheck(1);
 		} else {
 			System.out.println("\nRoles currently assigned :");
-			
+
 			lineCheck(1);
-			
-			for (Role role : rolesCurrentlyAssigned) {
-				displayRole(role);	
+
+			for (Entry<Role, Integer> role : rolesCurrentlyAssigned.entrySet()) {
+				System.out.println(role.getKey().getName() + " -> " + role.getValue());
+				lineCheck(1);
 			}
-			
+
 			System.out.println("\n");
-			
+
 			lineCheck(1);
-			
+
 		}
-				
+
 		displaySubSeparator();
-		
-		System.out.println("Total role assigned : " + (rolesAlreadyAssigned.size() + rolesCurrentlyAssigned.size()));
-		
-		
+
+		System.out.println("Total role assigned : "	+ (rolesAlreadyAssigned.size() + rolesCurrentlyAssigned.size()));
+
 		lineCheck(3);
-		
+
 		displaySeparator();
 
 	}
@@ -204,14 +220,10 @@ public class Displays {
 		System.out.println("\n===========================================================\n");
 		lineCheck(1);
 	}
-	
-	private void displaySubSeparator() {
-		System.out.println("\t---------------------------------------------------");
-		lineCheck(1);
-	}
 
-	public void displayRole(Role role) {
-		System.out.println(role.getID());
+	private void displaySubSeparator() {
+		System.out
+				.println("\t---------------------------------------------------");
 		lineCheck(1);
 	}
 
@@ -225,9 +237,8 @@ public class Displays {
 		System.out.println("\nProjects previously assigned to : "
 				+ resource.getFirstName() + " " + resource.getLastName() + " "
 				+ resource.getID());
-		
-		lineCheck(2);
 
+		lineCheck(2);
 
 		for (Project project : resource.getPreviouslyAssignedProjectList()) {
 
@@ -235,10 +246,10 @@ public class Displays {
 			lineCheck(1);
 
 		}
-		
+
 		displaySeparator();
 	}
-	
+
 	/**
 	 * Lists the projects currently assigned to a resource during this session.
 	 * 
@@ -249,9 +260,8 @@ public class Displays {
 		System.out.println("\nProjects assigned (in this session) to : "
 				+ resource.getFirstName() + " " + resource.getLastName() + " "
 				+ resource.getID());
-		
-		lineCheck(2);
 
+		lineCheck(2);
 
 		for (Project project : resource.getProjectsAssigned()) {
 
@@ -259,7 +269,7 @@ public class Displays {
 			lineCheck(1);
 
 		}
-		
+
 		displaySeparator();
 	}
 
@@ -296,5 +306,5 @@ public class Displays {
 			lineCheck(1);
 		}
 	}
-	
+
 } // Display

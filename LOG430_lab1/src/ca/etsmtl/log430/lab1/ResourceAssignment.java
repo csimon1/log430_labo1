@@ -8,6 +8,7 @@ import ca.etsmtl.log430.lab1.controller.Menus;
 import ca.etsmtl.log430.lab1.presentation.Displays;
 import ca.etsmtl.log430.lab1.services.Project;
 import ca.etsmtl.log430.lab1.services.Resource;
+import ca.etsmtl.log430.lab1.services.Role;
 
 /**
  * Main class for assignment 1 for LOG430, Architecture logicielle.
@@ -79,6 +80,14 @@ public class ResourceAssignment {
 			System.out.println("\njava ResourceAssignment <project file name>"
 					+ " <resource file name> <job file name>");
 		} else {
+			
+			
+			Role r1 = new Role("DES");
+			Role r2 = new Role("DES");
+			
+			System.out.println(r1.equals(r2));
+			
+			
 
 			// Declarations:
 
@@ -168,25 +177,23 @@ public class ResourceAssignment {
 							.getListOfResources());
 
 					if (resource != null) {
-						display.displayProjectList(projectList
-								.getListOfProjects());
-						project = menu.pickProject(projectList
-								.getListOfProjects());
+						display.displayProjectList(projectList.getListOfProjects());
+						project = menu.pickProject(projectList.getListOfProjects());
 
 						boolean assign = false;
-						if (resource.isAvailableForProject(project))
-						{
-							assign = true;
-						} 
+						if (project != null) {
+							if (resource.isAvailableForProject(project)) {
+								assign = true;
+							}
 
-						if (assign)
-							project.assignResource(resource);
-						display.displayResourcesAssignedToProject(project);
+							if (assign)
+								project.assignResource(resource);
+							display.displayResourcesAssignedToProject(project);
 
-					} // if
-
+						} // if
+					}
 					break;
-					
+
 				case '6':
 					display.displayResourceList(resourceList
 							.getListOfResources());
