@@ -41,17 +41,7 @@ public class Resource implements Identiable
 {
 	
 	public static final int MAX_WORK_CHARGE = 100;
-	public static final String MSG_ASSIGNATION_AUTORISEE_1_1 = "La ressource peut être assignée au projet  car, soit\n";
-	public static final String MSG_ASSIGNATION_AUTORISEE_1_2 = "la date de début du projet auquel on veut assigner\n";
-	public static final String MSG_ASSIGNATION_AUTORISEE_1_3 = "la ressource est postérieure aux dates de fin des projets\n";
-	public static final String MSG_ASSIGNATION_AUTORISEE_1_4 = "auxquels la ressource a été assignée auparavant\n";
-	public static final String MSG_ASSIGNATION_AUTORISEE_1_5 = "soit la date de fin du projet auquel on veut assigner\n";
-	public static final String MSG_ASSIGNATION_AUTORISEE_1_6 = "la ressource est antérieure aux dates de début des projets\n";
-	public static final String MSG_ASSIGNATION_AUTORISEE_2_1 = "ASSIGNATION AUTORISÉE!La ressource ne sera pas surchargée.\n";
-	public static final String MSG_ASSIGNATION_INTERDITE_1_1 = "ASSIGNATION IMPOSSIBLE!La ressource sera surchargée.\n";
 	
-	
-
 	/**
 	 * Resource's last name
 	 */
@@ -228,6 +218,7 @@ public class Resource implements Identiable
 		projectAssigned.addAll(getProjectsCurrentlyAssigned());
 		
 		return projectAssigned;
+		
 	}
 
 	/**
@@ -282,132 +273,25 @@ public class Resource implements Identiable
 	}
 
 	
-	public boolean isAvailableForProject(Project project) 
-	{
-		boolean isAvailableForProject_1 = true; 
-		boolean isAvailableForProject_2 = true;
-		boolean isAvailableForProject_Final = false;
+	public boolean isAvailableForProject(Project project) {
 		
-		for (Project p : this.getPreviouslyAssignedProjectList())
-		{
-			if( (isAvailableForProject_1 && (project.getStartDate().after(p.getEndDate()))) || 
-				(isAvailableForProject_1 && (project.getEndDate().before(p.getStartDate())))
-			   )
-			{
-				continue;
-			}
-			else
-			{
-				isAvailableForProject_1 = false;
-				break;
-			}
-		}
-		
-		if(isAvailableForProject_1)
-		{
-			for (Project p : this.getProjectsCurrentlyAssigned())
-			{
-				if( (isAvailableForProject_1 && project.getPeriode().getStartDate().after(p.getPeriode().getEndDate())) || 
-					(isAvailableForProject_1 && project.getPeriode().getEndDate().before(p.getPeriode().getStartDate()))
-				  )
-				{
-					continue;
-				}
-				else
-				{
-					isAvailableForProject_1 = false;
-					break;
+		for (Project p : this.getProjectsAssigned()) {
+			if(p.getPeriode().contains(project.getStartDate())){
+				if(p.getPriority().getRessourceCharge() + project.getPriority().getRessourceCharge() > Resource.MAX_WORK_CHARGE){
+					return false;
 				}
 			}
-		}
-		
-		if(isAvailableForProject_1)
-		{
-			System.out.println(Resource.MSG_ASSIGNATION_AUTORISEE_1_1 + Resource.MSG_ASSIGNATION_AUTORISEE_1_2
-								+ Resource.MSG_ASSIGNATION_AUTORISEE_1_3 + Resource.MSG_ASSIGNATION_AUTORISEE_1_4
-								+ Resource.MSG_ASSIGNATION_AUTORISEE_1_5 + Resource.MSG_ASSIGNATION_AUTORISEE_1_6);
-			return isAvailableForProject_1;
 			
-		}
-		
-		if(!isAvailableForProject_1)
-		{
-			for (Project p : this.getPreviouslyAssignedProjectList())
-			{
-				if( (isAvailableForProject_2 && 
-						((project.getEndDate().after(p.getStartDate())&&(project.getEndDate().before(p.getEndDate()))))
-					 ) ||
-					 ((isAvailableForProject_2 && 
-								((project.getEndDate().after(p.getEndDate())&&(project.getStartDate().before(p.getEndDate()))))
-							  ))
-					)
-				{
-					if( 
-							(project.getPriority().getRessourceCharge() + p.getPriority().getRessourceCharge() ) > 
-							Priority.HIGH.getRessourceCharge()
-					   )
-					{
-							isAvailableForProject_2 = false;
-					}
-				}
-				
-				if(!isAvailableForProject_2)
-				{
-					break;
-				}
-			}
-		}
-		if(isAvailableForProject_2)
-		{
-			for (Project p : this.getProjectsCurrentlyAssigned())
-			{
-				if( (isAvailableForProject_2 && 
-						((project.getEndDate().after(p.getStartDate())&&(project.getEndDate().before(p.getEndDate()))))
-					 ) ||
-					 ((isAvailableForProject_2 && 
-								((project.getEndDate().after(p.getEndDate())&&(project.getStartDate().before(p.getEndDate()))))
-							  ))
-					)
-				{
-					if( 
-							(project.getPriority().getRessourceCharge() + p.getPriority().getRessourceCharge() ) > 
-							Priority.HIGH.getRessourceCharge()
-					   )
-					{
-							isAvailableForProject_2 = false;
-					}
-				}
-				
-				if(!isAvailableForProject_2)
-				{
-					break;
+			if(p.getPeriode().contains(project.getEndDate())){
+				if(p.getPriority().getRessourceCharge() + project.getPriority().getRessourceCharge() > Resource.MAX_WORK_CHARGE){
+					return false;
 				}
 			}
 		}
 		
-		if(isAvailableForProject_2)
-		{
-			System.out.println(Resource.MSG_ASSIGNATION_AUTORISEE_2_1 );
-			return isAvailableForProject_2;
-			
-		}
-		
-		if(!isAvailableForProject_2)
-		{
-			System.out.println(Resource.MSG_ASSIGNATION_INTERDITE_1_1 );
-			return isAvailableForProject_2;
-			
-		}	
-			
-		
-		return isAvailableForProject_Final;
+		return true;
 	}
 	
-	private Object getAssignedProjectList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public boolean isOverallocated(){
 		return overallocated;
 	}
