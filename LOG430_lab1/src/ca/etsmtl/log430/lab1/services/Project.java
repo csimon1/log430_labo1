@@ -88,12 +88,8 @@ public class Project implements Identiable
 	/**
 	 * Assign a resource to a project.
 	 * 
-<<<<<<< .working
-	 * @param resource the Ressource object to assign
-=======
 	 * @param resource the Ressource object to assign
 	 * @return true if resource is assigned
->>>>>>> .merge-right.r72
 	 */
 
 	public boolean assignResource(Resource resource) 
