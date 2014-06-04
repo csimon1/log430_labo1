@@ -33,4 +33,25 @@ public class Role implements Identiable {
 		this.name = name;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		
+		if(super.equals(obj)){
+			return true;
+		}
+		
+		if(! (obj instanceof Role)){
+			return false;
+		}
+		
+		Role r = (Role) obj;
+		
+		return this.getID().equalsIgnoreCase(r.getID());
+	}
+	
+	@Override
+	public int hashCode() {
+		return id.hashCode();		
+	}	
+	
 }

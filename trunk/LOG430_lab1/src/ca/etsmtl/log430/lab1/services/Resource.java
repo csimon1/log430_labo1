@@ -275,20 +275,21 @@ public class Resource implements Identiable
 	
 	public boolean isAvailableForProject(Project project) {
 		
-		for (Project p : this.getProjectsAssigned()) {
-			if(p.getPeriode().contains(project.getStartDate())){
-				if(p.getPriority().getRessourceCharge() + project.getPriority().getRessourceCharge() > Resource.MAX_WORK_CHARGE){
-					return false;
+		if(project != null) {
+			for (Project p : this.getProjectsAssigned()) {
+				if(p.getPeriode().contains(project.getStartDate())){
+					if(p.getPriority().getRessourceCharge() + project.getPriority().getRessourceCharge() > Resource.MAX_WORK_CHARGE){
+						return false;
+					}
 				}
-			}
-			
-			if(p.getPeriode().contains(project.getEndDate())){
-				if(p.getPriority().getRessourceCharge() + project.getPriority().getRessourceCharge() > Resource.MAX_WORK_CHARGE){
-					return false;
+				
+				if(p.getPeriode().contains(project.getEndDate())){
+					if(p.getPriority().getRessourceCharge() + project.getPriority().getRessourceCharge() > Resource.MAX_WORK_CHARGE){
+						return false;
+					}
 				}
 			}
 		}
-		
 		return true;
 	}
 	
