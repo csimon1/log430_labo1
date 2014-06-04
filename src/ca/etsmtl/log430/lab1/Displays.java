@@ -213,11 +213,34 @@ public class Displays {
 	}
 
 	/**
+	 * Lists the projects previously assigned to a resource .
+	 * 
+	 * @param resource
+	 */
+	public void displayProjectsPreviouslyAssignedToResource(Resource resource) {
+
+		System.out.println("\nProjects previously assigned to : "
+				+ resource.getFirstName() + " " + resource.getLastName() + " "
+				+ resource.getID());
+		
+		lineCheck(2);
+
+
+		for (Project project : resource.getPreviouslyAssignedProjectList()) {
+
+			displayProject(project);
+			lineCheck(1);
+
+		}
+		
+		displaySeparator();
+	}
+	
+	/**
 	 * Lists the projects currently assigned to a resource during this session.
 	 * 
 	 * @param resource
 	 */
-
 	public void displayProjectsAssignedToResource(Resource resource) {
 
 		System.out.println("\nProjects assigned (in this session) to : "
